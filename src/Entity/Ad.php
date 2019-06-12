@@ -67,27 +67,76 @@ class Ad
     private $tags;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Equipment", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="boolean")
      */
-    private $equipment;
+    private $privateTransport;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Establishment", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="boolean")
      */
-    private $establishment;
+    private $publicTransport;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Transport", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="boolean")
      */
-    private $transport;
+    private $atHome;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Bonus", cascade={"persist", "remove"})
+     * @ORM\Column(type="boolean")
      */
-    private $bonus;
+    private $atLaundryService;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $atFriendsPlace;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $gentleHouseholdProduct;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $hospitalProduct;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $earthProtection;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $dedicatedPlace;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $washer;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $handwashinhandwashing;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $tumbleDryer;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $airDrying;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $ironing;
+
+
 
     
     public function __construct()
@@ -95,10 +144,6 @@ class Ad
         $this->tags = new ArrayCollection();
     }
 
-    public function __toString() 
-    {
-        return $this->$establishment;
-    }
 
     public function getId(): ?int
     {
@@ -177,53 +222,6 @@ class Ad
         return $this;
     }
 
-    public function getEquipment(): ?Equipment
-    {
-        return $this->equipment;
-    }
-
-    public function setEquipment(Equipment $equipment): self
-    {
-        $this->equipment = $equipment;
-
-        return $this;
-    }
-
-    public function getEstablishment(): ?Establishment
-    {
-        return $this->Establishment;
-    }
-
-    public function setEstablishment(Establishment $establishment): self
-    {
-        $this->Establishment = $establishment;
-
-        return $this;
-    }
-
-    public function getTransport(): ?Transport
-    {
-        return $this->Transport;
-    }
-
-    public function setTransport(Transport $transport): self
-    {
-        $this->Transport = $transport;
-
-        return $this;
-    }
-
-    public function getBonus(): ?Bonus
-    {
-        return $this->bonus;
-    }
-
-    public function setBonus(?Bonus $bonus): self
-    {
-        $this->bonus = $bonus;
-
-        return $this;
-    }
 
     public function getPlace(): ?Place
     {
@@ -271,6 +269,174 @@ class Ad
         if ($this->tags->contains($tag)) {
             $this->tags->removeElement($tag);
         }
+
+        return $this;
+    }
+
+    public function getPrivateTransport(): ?bool
+    {
+        return $this->privateTransport;
+    }
+
+    public function setPrivateTransport(bool $privateTransport): self
+    {
+        $this->privateTransport = $privateTransport;
+
+        return $this;
+    }
+
+    public function getPublicTransport(): ?bool
+    {
+        return $this->publicTransport;
+    }
+
+    public function setPublicTransport(bool $publicTransport): self
+    {
+        $this->publicTransport = $publicTransport;
+
+        return $this;
+    }
+
+    public function getAtHome(): ?bool
+    {
+        return $this->atHome;
+    }
+
+    public function setAtHome(bool $atHome): self
+    {
+        $this->atHome = $atHome;
+
+        return $this;
+    }
+
+    public function getAtLaundryService(): ?bool
+    {
+        return $this->atLaundryService;
+    }
+
+    public function setAtLaundryService(bool $atLaundryService): self
+    {
+        $this->atLaundryService = $atLaundryService;
+
+        return $this;
+    }
+
+    public function getAtFriendsPlace(): ?bool
+    {
+        return $this->atFriendsPlace;
+    }
+
+    public function setAtFriendsPlace(bool $atFriendsPlace): self
+    {
+        $this->atFriendsPlace = $atFriendsPlace;
+
+        return $this;
+    }
+
+    public function getGentleHouseholdProduct(): ?bool
+    {
+        return $this->gentleHouseholdProduct;
+    }
+
+    public function setGentleHouseholdProduct(?bool $gentleHouseholdProduct): self
+    {
+        $this->gentleHouseholdProduct = $gentleHouseholdProduct;
+
+        return $this;
+    }
+
+    public function getHospitalProduct(): ?bool
+    {
+        return $this->hospitalProduct;
+    }
+
+    public function setHospitalProduct(?bool $hospitalProduct): self
+    {
+        $this->hospitalProduct = $hospitalProduct;
+
+        return $this;
+    }
+
+    public function getEarthProtection(): ?bool
+    {
+        return $this->earthProtection;
+    }
+
+    public function setEarthProtection(?bool $earthProtection): self
+    {
+        $this->earthProtection = $earthProtection;
+
+        return $this;
+    }
+
+    public function getDedicatedPlace(): ?bool
+    {
+        return $this->dedicatedPlace;
+    }
+
+    public function setDedicatedPlace(?bool $dedicatedPlace): self
+    {
+        $this->dedicatedPlace = $dedicatedPlace;
+
+        return $this;
+    }
+
+    public function getWasher(): ?bool
+    {
+        return $this->washer;
+    }
+
+    public function setWasher(bool $washer): self
+    {
+        $this->washer = $washer;
+
+        return $this;
+    }
+
+    public function getHandwashinhandwashing(): ?bool
+    {
+        return $this->handwashinhandwashing;
+    }
+
+    public function setHandwashinhandwashing(bool $handwashinhandwashing): self
+    {
+        $this->handwashinhandwashing = $handwashinhandwashing;
+
+        return $this;
+    }
+
+    public function getTumbleDryer(): ?bool
+    {
+        return $this->tumbleDryer;
+    }
+
+    public function setTumbleDryer(bool $tumbleDryer): self
+    {
+        $this->tumbleDryer = $tumbleDryer;
+
+        return $this;
+    }
+
+    public function getAirDrying(): ?bool
+    {
+        return $this->airDrying;
+    }
+
+    public function setAirDrying(bool $airDrying): self
+    {
+        $this->airDrying = $airDrying;
+
+        return $this;
+    }
+
+    public function getIroning(): ?bool
+    {
+        return $this->ironing;
+    }
+
+    public function setIroning(bool $ironing): self
+    {
+        $this->ironing = $ironing;
 
         return $this;
     }
