@@ -48,6 +48,24 @@ class Ad
      */
     private $updatedAt;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Place", inversedBy="ads", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $place;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="ads", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="ads")
+     */
+    private $tags;
+
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Equipment", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
@@ -71,26 +89,15 @@ class Ad
      */
     private $bonus;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Place", inversedBy="ads")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $place;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="ads")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="ads")
-     */
-    private $tags;
-
+    
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+    }
+
+    public function __toString() 
+    {
+        return $this->$establishment;
     }
 
     public function getId(): ?int
