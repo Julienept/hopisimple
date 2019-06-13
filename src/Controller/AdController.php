@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\AdRepository;
 
 class AdController extends AbstractController
 {
@@ -20,20 +21,27 @@ class AdController extends AbstractController
     /**
      * @Route("/annonces", name="ads_list")
      */
-    public function ads()
+    public function allAds(AdRepository $AdRepository)
     {
+        $ads = $AdRepository->findAll();
+
         return $this->render('ad/index.html.twig', [
-            'controller_name' => 'AdController',
+            'ads' => $ads,
         ]);
+
     }
 
      /**
      * @Route("/annonces/{id}", name="ads_show")
+     * 
+     * @return Response
      */
-    public function adsById()
+    public function showAd(AdRepository $AdRepository, $id)
     {
-        return $this->render('ad/index.html.twig', [
-            'controller_name' => 'AdController',
+        $ad = $AdRepository->findOneById($id);
+
+        return $this->render('ad/show.html.twig', [
+            'ad' => $ad,
         ]);
     }
 

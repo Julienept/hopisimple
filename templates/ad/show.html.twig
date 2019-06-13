@@ -1,0 +1,160 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<div class="container">
+<div class="ad-container">
+
+    <div class="ad-content">
+        <h2>
+        {{ ad.title }}
+        </h2>
+         <p>
+        {{ ad.description }}
+        </p>
+        <span>
+        {{ ad.place.city }}
+        </span>
+        <span>
+        {{ ad.price }}
+        </span>
+
+        <h5>
+        Où se déroule la prestation ?
+        </h5>
+            {% if ad.atHome == true %}
+            <i class="fas fa-home"></i><p>
+                A mon domicile
+            </p>
+
+            {% elseif ad.atFriendsPlace == true %}
+            <i class="fas fa-user-friends"></i>
+
+            {% elseif ad.atLaundryService == true %}
+            <i class="fas fa-store-alt"></i>
+            {% endif %}
+
+        <h5>Mes équipements</h5>
+
+            {% if ad.washer == true %}
+            <i class="material-icons" style="font-size:56px">local_laundry_service</i>
+            {% endif %}
+
+            
+
+            {% if ad.handwashinhandwashing == true %}
+            <i class="fas fa-home"></i>
+            {% endif %}
+
+            
+
+            {% if ad.tumbleDryer == true %}
+            <i class="fas fa-home"></i>
+            {% endif %}
+
+            
+
+            {% if ad.airDrying == true %}
+            <i class="fas fa-home"></i>
+            {% endif %}
+
+            
+
+            {% if ad.ironing == true %}
+            <i class="fas fa-home"></i>
+            {% endif %}
+
+            
+
+        <h5>Mon moyen de locomotion</h5>
+
+            {% if ad.privateTransport == true %}
+            <i class="fas fa-car"></i>
+            
+
+            {% elseif ad.publicTransport == true %}
+            <i class="fas fa-bus-alt"></i>
+            {% endif %}
+
+
+            <div class="ad-bonus"><h5>Les +</h5>
+            {% if ad.gentleHouseholdProduct == true %}
+            <i class="fas fa-bus-alt"></i>
+            {% endif %}
+            
+            
+            {% if ad.hospitalProduct == true %}
+            <i class="fas fa-bus-alt"></i>
+            {% endif %}
+            
+            
+            {% if ad.earthProtection == true %}
+            <i class="fas fa-bus-alt"></i>
+            {% endif %}
+            
+            
+            {% if ad.dedicatedPlace == true %}
+            <i class="fas fa-bus-alt"></i>
+            {% endif %}</div>
+            
+    </div> 
+
+    <div class="ad-infos">
+        <div class="ad-provider">
+            <h5>Votre prestataire</h5>
+                <span>
+                {{ ad.user.firstname }}
+                </span>
+                <span>
+                {{ ad.user.lastname }}
+                </span>
+                <p>{{ ad.user.biography }}</p>
+                <div>{{ ad.user.picture }}</div>
+                <span>{{ ad.user.rating }}</span>
+                <a href="#" class="btn btn-success">Contacter</a></div>
+
+        <div class="ad-date">
+            <h5>Sélectionner vos dates</h5>
+                <table class="table table-striped">
+                <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                <th scope="row">1</th>
+                <td>Jour</td>
+                <td>Jour</td>
+                <td>Jour</td>
+                </tr>
+                <tr>
+                <th scope="row">2</th>
+                <td>Jour</td>
+                <td>Jour</td>
+                <td>Jour</td>
+                </tr>
+                <tr>
+                <th scope="row">3</th>
+                <td>Jour</td>
+                <td>Jour</td>
+                <td>Jour</td>
+                </tr>
+                </tbody>
+                </table>
+        <button type="button" class="btn btn-success">Réserver</button>
+        </div>
+
+    </div>
+
+
+    
+</div>
+
+</div>
+<a href="#"><div><i class="fas fa-flag"></i> Signaler cette annonce</a>
+{% endblock %}

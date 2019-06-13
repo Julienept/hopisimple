@@ -144,6 +144,10 @@ class Ad
         $this->tags = new ArrayCollection();
     }
 
+    public function __toString()
+     {
+        return $this->place;
+     }
 
     public function getId(): ?int
     {

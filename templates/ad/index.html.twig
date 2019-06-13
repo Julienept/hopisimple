@@ -1,7 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdController!{% endblock %}
 
 {% block body %}
-<h1>Les annonces de la région [...]</h1>
+<h1>Toutes les annonces</h1>
+
+{% for ad in ads %}
+<div>
+    <h4>
+    {{ ad.title }}
+    </h4>
+    <p>{{ ad.description }}</p>
+    <span>{{ ad.price}} €</span>
+    <span>{{ ad.place.city }}</span>
+    <span>{{ ad.user.firstname }}</span>
+    <span>{{ ad.user.lastname }}</span>
+
+
+</div>
+{% endfor %}
 {% endblock %}

@@ -1,0 +1,43 @@
+.ad-container {
+    display: flex;
+}
+
+.ad-content {
+    border: 1px solid black;
+    border-radius: 1em;
+    padding: 2em;
+    margin: 2em;
+
+}
+
+.ad-provider {
+    border: 1px solid black;
+    border-radius: 1em;
+    padding: 2em;
+    margin: 2em;
+
+
+}
+
+.ad-date {
+    border: 1px solid black;
+    border-radius: 1em;
+    padding: 2em;
+    margin: 2em;
+
+}
+
+.ad-infos {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.ad-bonus{
+    background-color: #a9dc6e;
+}
+
+.page-footer {
+    background-color: #eeeeee;
+    margin-top: 5em;
+}
