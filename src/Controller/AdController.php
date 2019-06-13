@@ -12,7 +12,7 @@ class AdController extends AbstractController
      */
     public function homepage()
     {
-        return $this->render('ad/index.html.twig', [
+        return $this->render('home/home.html.twig', [
             'controller_name' => 'AdController',
         ]);
     }
