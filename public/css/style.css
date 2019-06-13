@@ -1,3 +1,24 @@
+.home-city
+{
+    display: flex;
+    justify-content: space-around;
+}
+
+.first-part
+{
+    flex-direction: column;
+    display: flex;
+}
+
+.second-part
+{
+    flex-direction: column;
+    display: flex;
+
+}
+
+
+
 .ad-container {
     display: flex;
 }
@@ -40,4 +61,29 @@
 .page-footer {
     background-color: #eeeeee;
     margin-top: 5em;
+}
+
+
+.map-body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+
+}
+.map-td {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+    line-height: 22px;
+}
+
+area-shape :hover
+{
+    color: red;
+}
+
+.search-cities
+{
+    display: flex;
+
 }
