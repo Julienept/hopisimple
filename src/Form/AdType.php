@@ -18,7 +18,6 @@ class AdType extends AbstractType
             ->add('description', TextareaType::class)
             ->add('price', NumberType::class)
             ->add('date')
-            ->add('createdAt')
             ->add('privateTransport')
             ->add('publicTransport')
             ->add('atHome')
@@ -34,7 +33,6 @@ class AdType extends AbstractType
             ->add('airDrying')
             ->add('ironing')
             ->add('place')
-            ->add('user')
             ->add('tags')
         ;
     }

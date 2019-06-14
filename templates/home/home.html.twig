@@ -5,7 +5,7 @@
 {% block body %}
 
 <div class="container">
-<div class="jumbotron">
+{# <div class="jumbotron">
 <h1 class="display-3">Bienvenue sur hopisimple !</h1>
 <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
 <hr class="my-4">
@@ -13,8 +13,9 @@
 <p class="lead">
 <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
 </p>
-</div>
+</div> #}
 
+<div class="home-city">
 <div class="map-body">
 <p>&nbsp; </p>
 <table width="100%" border="0" cellspacing="0" cellpadding="4">
@@ -53,9 +54,8 @@
         <script src="cmap/France-map.js"></script>
         <script>francefree();</script> {% endblock %}
 
-
-<div class="search-cities"><h2>Recherchez par grandes villes</h2>
-<div class="home-city">
+<div class="search-cities">
+<h2>Recherchez par grandes villes</h2>
 <div class="first-part">
 <a href="">Paris</a>
 <a href="">Lyon</a>
@@ -70,7 +70,8 @@
 <a href="">Strasbourg</a>
 <a href="">Rennes</a>
 </div>
-</div></div>
+</div>
+</div>
 
 <h2>Les annonces les mieux notées</h2>
 <div class="row mt-5">

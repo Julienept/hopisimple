@@ -2,18 +2,34 @@
 {
     display: flex;
     justify-content: space-around;
+    width: 100%;
+    margin-top: 8em;
+
+}
+
+.search-cities {
+    margin-left: 10em;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}
+
+.search-cities> a {
+    margin: 5em;
 }
 
 .first-part
 {
     flex-direction: column;
     display: flex;
+
 }
 
 .second-part
 {
     flex-direction: column;
     display: flex;
+    align-content: flex-end;
 
 }
 
