@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdRepository")
@@ -48,12 +50,6 @@ class Ad
      */
     private $updatedAt;
 
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Place", inversedBy="ads", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $place;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="ads", cascade={"persist"})
@@ -136,18 +132,49 @@ class Ad
      */
     private $ironing;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Place", inversedBy="ad", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $place;
+
 
 
     
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->createdAt = new DateTime();
+
     }
 
     public function __toString()
      {
-        return $this->place;
+         return $this->place;
+         return $this->user;
      }
+
+    // public function __toString()
+    //  {
+    //     return $this->user;
+    //     return $this->publicTransport;
+    //     return $this->privateTransport;
+    //     return $this->AtHome;
+    //     return $this->atLaundryService;
+    //     return $this->atFriendsPlace;
+    //     return $this->gentleHouseholdProduct;
+    //     return $this->hospitalProduct;
+    //     return $this->earthProtection;
+    //     return $this->dedicatedPlace;
+    //     return $this->washer;
+    //     return $this->handwashinhandwashing;
+    //     return $this->tumbleDryer;
+    //     return $this->airDrying;
+    //     return $this->ironing;
+        
+
+
+    // }
 
     public function getId(): ?int
     {
@@ -227,17 +254,6 @@ class Ad
     }
 
 
-    public function getPlace(): ?Place
-    {
-        return $this->place;
-    }
-
-    public function setPlace(?Place $place): self
-    {
-        $this->place = $place;
-
-        return $this;
-    }
 
     public function getUser(): ?User
     {
@@ -441,6 +457,18 @@ class Ad
     public function setIroning(bool $ironing): self
     {
         $this->ironing = $ironing;
+
+        return $this;
+    }
+
+    public function getPlace(): ?Place
+    {
+        return $this->place;
+    }
+
+    public function setPlace(Place $place): self
+    {
+        $this->place = $place;
 
         return $this;
     }

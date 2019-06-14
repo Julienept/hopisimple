@@ -7,15 +7,35 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-  
+  /**
+     * @Route("/connexion", name="user_login")
+     */
+    public function login()
+    {
+        return $this->render('profile/index.html.twig');
+    }
+
+    /**
+     * @Route("/inscription", name="user_signin")
+     */
+    public function signin()
+    {
+        return $this->render('profile/index.html.twig');
+    }
+
+    /**
+     * @Route("/deconnexion", name="user_logout")
+     */
+    public function logout()
+    {
+        return $this->render('profile/index.html.twig');
+    }
     /**
      * @Route("/profil/{id}", name="user_profile")
      */
     public function account()
     {
-        return $this->render('profile/index.html.twig', [
-            'controller_name' => 'ProfileController',
-        ]);
+        return $this->render('profile/index.html.twig');
     }
 
     /**

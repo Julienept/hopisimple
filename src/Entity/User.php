@@ -69,16 +69,35 @@ class User
     private $ads;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Place", inversedBy="users")
+     * @ORM\OneToOne(targetEntity="App\Entity\Place", inversedBy="user", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $place;
 
+    
+
     public function __construct()
     {
         $this->ads = new ArrayCollection();
+
     }
 
+    public function __toString()
+     {
+        return (string) $this->title;
+        return (string) $this->firstname;
+        return (string) $this->lastname;
+        return (string) $this->email;
+        return (string) $this->password;
+        return (string) $this->picture;
+        return (string) $this->biography;
+        return (string) $this->inscriptionDate;
+        return (string) $this->rating;
+        return (string) $this->biography;
+       
+     }
+    
+   
     public function getId(): ?int
     {
         return $this->id;
@@ -228,10 +247,12 @@ class User
         return $this->place;
     }
 
-    public function setPlace(?Place $place): self
+    public function setPlace(Place $place): self
     {
         $this->place = $place;
 
         return $this;
     }
+
+
 }

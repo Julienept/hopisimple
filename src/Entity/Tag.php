@@ -33,6 +33,11 @@ class Tag
         $this->ads = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getAds;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -2,9 +2,8 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PlaceRepository")
@@ -29,7 +28,7 @@ class Place
     private $streetName;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $addressSupplement;
 
@@ -44,11 +43,6 @@ class Place
     private $city;
 
     /**
-     * @ORM\Column(type="string", length=155)
-     */
-    private $country;
-
-    /**
      * @ORM\Column(type="decimal", precision=18, scale=8, nullable=true)
      */
     private $latitude;
@@ -59,20 +53,33 @@ class Place
     private $longitude;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Ad", mappedBy="place")
+     * @ORM\OneToOne(targetEntity="App\Entity\Ad", mappedBy="place", cascade={"persist", "remove"})
      */
-    private $ads;
+    private $ad;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="place")
+     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="place", cascade={"persist", "remove"})
      */
-    private $users;
+    private $user;
 
-    public function __construct()
-    {
-        $this->ads = new ArrayCollection();
-        $this->users = new ArrayCollection();
-    }
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $country;
+
+    public function __toString()
+     {
+
+        return (string) $this->streetNumber;
+        return (string) $this->streetName;
+        return (string) $this->addressSupplement;
+        return (string) $this->postalCode;
+        return (string) $this->city;
+        return (string) $this->latitude;
+        return (string) $this->longitude;
+       
+     }
+
 
     public function getId(): ?int
     {
@@ -139,18 +146,6 @@ class Place
         return $this;
     }
 
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
-
-    public function setCountry(string $country): self
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
     public function getLatitude()
     {
         return $this->latitude;
@@ -175,64 +170,48 @@ class Place
         return $this;
     }
 
-    /**
-     * @return Collection|Ad[]
-     */
-    public function getAds(): Collection
+    public function getAd(): ?Ad
     {
-        return $this->ads;
+        return $this->ad;
     }
 
-    public function addAd(Ad $ad): self
+    public function setAd(Ad $ad): self
     {
-        if (!$this->ads->contains($ad)) {
-            $this->ads[] = $ad;
+        $this->ad = $ad;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $ad->getPlace()) {
             $ad->setPlace($this);
         }
 
         return $this;
     }
 
-    public function removeAd(Ad $ad): self
+    public function getUser(): ?User
     {
-        if ($this->ads->contains($ad)) {
-            $this->ads->removeElement($ad);
-            // set the owning side to null (unless already changed)
-            if ($ad->getPlace() === $this) {
-                $ad->setPlace(null);
-            }
-        }
-
-        return $this;
+        return $this->user;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getUsers(): Collection
+    public function setUser(User $user): self
     {
-        return $this->users;
-    }
+        $this->user = $user;
 
-    public function addUser(User $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
+        // set the owning side of the relation if necessary
+        if ($this !== $user->getPlace()) {
             $user->setPlace($this);
         }
 
         return $this;
     }
 
-    public function removeUser(User $user): self
+    public function getCountry(): ?string
     {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
-            // set the owning side to null (unless already changed)
-            if ($user->getPlace() === $this) {
-                $user->setPlace(null);
-            }
-        }
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }

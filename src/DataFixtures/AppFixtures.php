@@ -15,12 +15,16 @@ class AppFixtures extends Fixture
     {
         $place = new Place;
         $user = new User;
+        $ad = new Ad;
+
         
         $place->setStreetNumber(1)
                 ->setStreetName('rue des ergots')
                 ->setPostalCode(77000)
                 ->setCity('Melun')
                 ->setCountry('France')
+                ->setAd($ad)
+                ->setUser($user)
         ;
         $manager->persist($place);
 
@@ -35,8 +39,8 @@ class AppFixtures extends Fixture
        ;
        $manager->persist($user);
 
-        for($i= 1; $i <= 20; $i++){
-            $ad = new Ad;
+        // for($i= 1; $i <= 20; $i++){
+        //     $ad = new Ad;
 
             $ad->setTitle('Titre de l\'annonce')
             ->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. In fermentum semper lobortis. Fusce vel mollis quam, id vulputate sem. Sed eu nulla vel felis lobortis condimentum. In viverra pretium orci, vitae dapibus augue iaculis ut. Vivamus vel orci nec nisi porttitor mattis. Aenean ullamcorper sollicitudin erat non placerat. Fusce sed eros sed tortor malesuada bibendum in tristique justo. Mauris rutrum vulputate ante quis facilisis. Praesent tristique porta elit non viverra. Cras pellentesque viverra arcu sed imperdiet. Nunc in euismod eros, quis feugiat eros.')
@@ -56,7 +60,7 @@ class AppFixtures extends Fixture
                 ->setPublicTransport(0);
 
             $manager->persist($ad);
-    }
+    
 
 
         $manager->flush();
