@@ -133,10 +133,9 @@ class Ad
     private $ironing;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Place", inversedBy="ad", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
-    private $place;
+    private $city;
 
 
 
@@ -150,7 +149,6 @@ class Ad
 
     public function __toString()
      {
-         return $this->place;
          return $this->user;
      }
 
@@ -461,15 +459,17 @@ class Ad
         return $this;
     }
 
-    public function getPlace(): ?Place
+    public function getCity(): ?string
     {
-        return $this->place;
+        return $this->city;
     }
 
-    public function setPlace(Place $place): self
+    public function setCity(string $city): self
     {
-        $this->place = $place;
+        $this->city = $city;
 
         return $this;
     }
+
+
 }

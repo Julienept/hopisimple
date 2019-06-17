@@ -2,66 +2,99 @@
 
 namespace App\DataFixtures;
 
+use Faker;
 use App\Entity\Ad;
 use App\Entity\Tag;
 use App\Entity\User;
 use App\Entity\Place;
+use Doctrine\Migrations\Version\Factory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
+    private $encoder;
+
+    public function __construct(UserPasswordEncoderInterface $encoder) {
+        $this->encoder = $encoder;
+    }
+
     public function load(ObjectManager $manager)
     {
-        $place = new Place;
-        $user = new User;
-        $ad = new Ad;
+        $faker = Faker\Factory::create();
 
-        
-        $place->setStreetNumber(1)
-                ->setStreetName('rue des ergots')
-                ->setPostalCode(77000)
-                ->setCity('Melun')
+        $places = [];
+        $genres = ['Monsieur', 'Madame'];
+        // Gestion des adresses
+
+        for($p=1; $p<= 50; $p++)
+        {
+    
+        $place = new Place;
+
+        $place->setStreetNumber($faker->randomFloat)
+                ->setStreetName($faker->streetName)
+                ->setPostalCode($faker->buildingNumber)
+                ->setCity($faker->city)
                 ->setCountry('France')
-                ->setAd($ad)
-                ->setUser($user)
         ;
         $manager->persist($place);
 
+        $places[] = $place;
 
-       $user->setTitle('Madame')
-            ->setFirstname('Mirabelle')
-            ->setLastname('Gaia')
-            ->setEmail('mirabelle@gaia.fr')
-            ->setPassword('test')
+        }
+
+        $users = [];
+
+        for($u=1; $u<= 50; $u++)
+        {
+        $genre = $genres[mt_rand(0, 1)];
+        
+
+        $place = $places[mt_rand(0, count($places) - 1)];
+        
+        $user = new User;
+
+        $password = $this->encoder->encodePassword($user, 'password');
+
+        $user->setTitle($genre)
+            ->setFirstname($faker->firstname)
+            ->setLastname($faker->firstname)
+            ->setEmail($faker->email)
+            ->setPassword($password)
+            ->setBiography($faker->paragraph(1))
             ->setInscriptionDate(new \DateTime())
             ->setPlace($place)
-       ;
-       $manager->persist($user);
+            ->setPicture($faker->imageUrl($width = 100, $height = 30))
+        ;
+        $manager->persist($user);
+        $users = $user;
+        }
 
-        // for($i= 1; $i <= 20; $i++){
-        //     $ad = new Ad;
+        for($i=1; $i<= 100; $i++)
+        {
+        $ad = new Ad;
 
-            $ad->setTitle('Titre de l\'annonce')
-            ->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit. In fermentum semper lobortis. Fusce vel mollis quam, id vulputate sem. Sed eu nulla vel felis lobortis condimentum. In viverra pretium orci, vitae dapibus augue iaculis ut. Vivamus vel orci nec nisi porttitor mattis. Aenean ullamcorper sollicitudin erat non placerat. Fusce sed eros sed tortor malesuada bibendum in tristique justo. Mauris rutrum vulputate ante quis facilisis. Praesent tristique porta elit non viverra. Cras pellentesque viverra arcu sed imperdiet. Nunc in euismod eros, quis feugiat eros.')
-            ->setPrice(13)
-            ->setCreatedAt(new \DateTime())
-            ->setPlace($place)
-            ->setUser($user)
-            ->setAtFriendsPlace(0)
-            ->setAtHome(1)
-            ->setAtLaundryService(0)
-            ->setAirDrying(1)
-                ->setHandwashinhandwashing(0)
-                ->setIroning(1)
-                ->setTumbleDryer(1)
-                ->setWasher(1)
-                ->setPrivateTransport(1)
-                ->setPublicTransport(0);
+            $ad->setTitle($faker->sentence(1))
+                ->setDescription($faker->paragraph(2))
+                ->setPrice(mt_rand(6,19))
+                ->setCreatedAt(new \DateTime())
+                ->setCity($faker->city)
+                ->setUser($user)
+                ->setAtFriendsPlace(mt_rand(0,1))
+                ->setAtHome(mt_rand(0,1))
+                ->setAtLaundryService(mt_rand(0,1))
+                ->setAirDrying(mt_rand(0,1))
+                ->setHandwashinhandwashing(mt_rand(0,1))
+                ->setIroning(mt_rand(0,1))
+                ->setTumbleDryer(mt_rand(0,1))
+                ->setWasher(mt_rand(0,1))
+                ->setPrivateTransport(mt_rand(0,1))
+                ->setPublicTransport(mt_rand(0,1));
 
             $manager->persist($ad);
-    
-
+        }
 
         $manager->flush();
     }

@@ -2,14 +2,16 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -69,16 +71,20 @@ class User
     private $ads;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Place", inversedBy="user", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Place", inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
      */
     private $place;
+
+   
 
     
 
     public function __construct()
     {
         $this->ads = new ArrayCollection();
+        $this->inscriptionDate = new DateTime();
+
 
     }
 
@@ -247,12 +253,31 @@ class User
         return $this->place;
     }
 
-    public function setPlace(Place $place): self
+    public function setPlace(?Place $place): self
     {
         $this->place = $place;
 
         return $this;
     }
 
+    
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
 
+    public function getSalt()
+    {
+        
+    }
+
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    public function EraseCredentials() 
+    {
+        
+    }
 }

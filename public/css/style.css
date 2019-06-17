@@ -114,5 +114,7 @@ area-shape :hover
 
 .user-picture 
 {
-    height: 10em;  
-}
+    vertical-align: middle;
+    height: 10em;
+    width: 10em;
+    border-radius: 50%;}

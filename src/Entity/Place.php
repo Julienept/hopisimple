@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -52,20 +53,21 @@ class Place
      */
     private $longitude;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Ad", mappedBy="place", cascade={"persist", "remove"})
-     */
-    private $ad;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="place", cascade={"persist", "remove"})
-     */
-    private $user;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $country;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="place")
+     */
+    private $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
     public function __toString()
      {
@@ -170,39 +172,8 @@ class Place
         return $this;
     }
 
-    public function getAd(): ?Ad
-    {
-        return $this->ad;
-    }
+    
 
-    public function setAd(Ad $ad): self
-    {
-        $this->ad = $ad;
-
-        // set the owning side of the relation if necessary
-        if ($this !== $ad->getPlace()) {
-            $ad->setPlace($this);
-        }
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(User $user): self
-    {
-        $this->user = $user;
-
-        // set the owning side of the relation if necessary
-        if ($this !== $user->getPlace()) {
-            $user->setPlace($this);
-        }
-
-        return $this;
-    }
 
     public function getCountry(): ?string
     {
@@ -212,6 +183,37 @@ class Place
     public function setCountry(string $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setPlace($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            // set the owning side to null (unless already changed)
+            if ($user->getPlace() === $this) {
+                $user->setPlace(null);
+            }
+        }
 
         return $this;
     }
