@@ -2,20 +2,23 @@
 
 
 {% block body %}
+<div class="container">
 <h1>Toutes les annonces</h1>
 
+<div class="ads-list">
 {% for ad in ads %}
-<div>
-    <h4>
-    {{ ad.title }}
-    </h4>
-    <p>{{ ad.description }}</p>
-    <span>{{ ad.price}} €</span>
-    <span>{{ ad.place.city }}</span>
-    <span>{{ ad.user.firstname }}</span>
-    <span>{{ ad.user.lastname }}</span>
+<h4>
+<a href="{{ path('ads_show', {'id': ad.id}) }}">{{ ad.title }}</a>
+</h4>
+<p>{{ ad.description }}</p>
+<span>{{ ad.price}} €</span>
+<span>{{ ad.place.city }}</span>
+<span>{{ ad.user.firstname }}</span>
+<span>{{ ad.user.lastname }}</span>
+<img src="{{ ad.user.picture}}" alt="user-image">
 
-
-</div>
 {% endfor %}
+</div>
+</div>
+
 {% endblock %}

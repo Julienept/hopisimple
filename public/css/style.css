@@ -103,3 +103,16 @@ area-shape :hover
     display: flex;
 
 }
+
+.ads-list 
+{
+    border: 1px solid black;
+    border-radius: 1em;
+    padding: 2em;
+    margin: 2em;
+}
+
+.user-picture 
+{
+    height: 10em;  
+}

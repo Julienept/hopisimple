@@ -6,15 +6,31 @@
 
 <div class="container">
 
-    <h1>Ajouter votre annonce</h1>
+    <h1>Proposer une prestation</h1>
 
-    {{ form_start(adForm)}}
+
+    <div class="form-group">
+    {{ form_widget(adForm.title, { 'attr': {'class': 'form-control'}})}}
+
+    {{ form_label(adForm.description)}}
+    {{ form_widget(adForm.description, { 'attr': {'class': 'form-control'}})}}
+
+    {{ form_widget(adForm.atHome)}}
+    <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+          A mon domicile
+        </label>
+      </div>
+
+    </div>
     {{ form_widget(adForm)}}
 
     <button type="submit" class="btn btn-primary">Valider</button>
-    {{ form_end(adForm)}}
 
 
 </div>
 
   {% endblock %}
+
+  
