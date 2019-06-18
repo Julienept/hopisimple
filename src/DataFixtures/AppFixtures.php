@@ -75,7 +75,6 @@ class AppFixtures extends Fixture
         $users = $user;
         }
 
-        
 
         // Gestion des annonces
         for($i=1; $i<= 100; $i++)
