@@ -27,7 +27,7 @@ class AdType extends AbstractType
             ->add('price', NumberType::class, [
                 'label' => 'Votre tarif'
             ]) 
-            ->add('city', TextareaType::class, [
+            ->add('city', TextType::class, [
                 'label' => 'Ville où se déroulera la prestation'
             ])
             ->add('privateTransport', RadioType::class, [

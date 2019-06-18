@@ -7,10 +7,13 @@ use App\Entity\Ad;
 use App\Entity\Tag;
 use App\Entity\User;
 use App\Entity\Place;
+use App\Entity\Transport;
 use Doctrine\Migrations\Version\Factory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Entity\Establishment;
+use App\Entity\Equipment;
 
 class AppFixtures extends Fixture
 {
@@ -72,9 +75,50 @@ class AppFixtures extends Fixture
         $users = $user;
         }
 
+        
+
+        // Gestion des annonces
         for($i=1; $i<= 100; $i++)
         {
         $ad = new Ad;
+
+        $washing = ['washer', 'handWashing'];
+
+        $washRand = $washing[mt_rand(0,1)];
+
+        $drying =  ['airDrying', 'tumbleDryer'];
+
+        $dryRand = $drying[mt_rand(0,1)];
+
+        $ironing = [true, false];
+
+        $irRand = $ironing[mt_rand(0,1)];
+
+        // ---
+        $est = ['atHome', 'atFriendsPlace', 'atLaundyShop'];
+        
+        $estRand = $est[mt_rand(0,2)];
+
+        $adEst = new Establishment;
+
+        $adEst->setPlace($estRand);
+
+        $eq = new Equipment;
+
+        $eq->setWashing($washRand)
+            ->setDrying($dryRand)
+            ->setIroning($irRand)
+            ;
+
+        // ---
+        $transport = ['private', 'transport'];
+
+        $transRand = $transport[mt_rand(0,1)];
+
+        $adTransport = new Transport;
+
+        $adTransport->setType($transRand);
+
 
             $ad->setTitle($faker->sentence(1))
                 ->setDescription($faker->paragraph(2))
@@ -82,16 +126,9 @@ class AppFixtures extends Fixture
                 ->setCreatedAt(new \DateTime())
                 ->setCity($faker->city)
                 ->setUser($user)
-                ->setAtFriendsPlace(mt_rand(0,1))
-                ->setAtHome(mt_rand(0,1))
-                ->setAtLaundryService(mt_rand(0,1))
-                ->setAirDrying(mt_rand(0,1))
-                ->setHandwashinhandwashing(mt_rand(0,1))
-                ->setIroning(mt_rand(0,1))
-                ->setTumbleDryer(mt_rand(0,1))
-                ->setWasher(mt_rand(0,1))
-                ->setPrivateTransport(mt_rand(0,1))
-                ->setPublicTransport(mt_rand(0,1));
+                ->setEstablishment($adEst)
+                ->setTransport($adTransport)
+                ->setEquipment($eq);
 
             $manager->persist($ad);
         }

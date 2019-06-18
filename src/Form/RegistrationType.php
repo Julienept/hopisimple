@@ -3,8 +3,11 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\Place;
+use App\Form\PlaceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -26,23 +29,21 @@ class RegistrationType extends AbstractType
                 'Monsieur' => 'Monsieur'
             ],
                 'expanded' => true,
-                'required' => true
             ])
             ->add('firstname', TextType::class,  [
                 'label' => 'Votre prénom',
-                'required' => true
             ])
             ->add('lastname', TextType::class,  [
                 'label' => 'Votre nom',
-                'required' => true
             ])
             ->add('email', EmailType::class,  [
                 'label' => 'Votre adresse mail',
-                'required' => true
             ])
             ->add('password', PasswordType::class, [
                 'label' => 'Votre mot de passe',
-                'required' => true
+            ])
+            ->add('passwordConfirm', PasswordType::class, [
+                'label' => 'Confirmation du mot de passe'
             ])
             ->add('picture', UrlType::class, [
                 'label' => 'Votre photo de profil',
@@ -52,7 +53,9 @@ class RegistrationType extends AbstractType
                 'label' => 'Votre biographie',
                 'required' => false
             ])
-            ->add('place')
+            ->add('place', PlaceType::class, [
+                'label' => 'Vos informations personnelles'
+            ])
         ;
     }
 
