@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Ad;
 use App\Form\AdType;
 use App\Repository\AdRepository;
@@ -9,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdController extends AbstractController
@@ -38,6 +40,7 @@ class AdController extends AbstractController
 
     /**
      * @Route("/annonces/ajouter", name="ads_new")
+     * @IsGranted("ROLE_USER")
      */
     public function new(EntityManagerInterface $em, ObjectManager $manager, Request $request)
     {
@@ -48,7 +51,7 @@ class AdController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $ad->setDate(new \DateTime());
+            $ad->setCreatedAt(new \DateTime());
             $ad->setUser($this->getUser());
 
             $manager->persist($ad);

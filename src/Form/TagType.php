@@ -14,8 +14,10 @@ class TagType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Ajouter un tag',
-            ])
+                'label' => 'Nom',
+                'empty_data' => '',
+                'required' => false, 
+                ])
         ;
         
     }

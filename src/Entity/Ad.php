@@ -91,9 +91,6 @@ class Ad
      */
     private $equipment;
 
-
-
-    
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -104,29 +101,9 @@ class Ad
     public function __toString()
      {
          return (string) $this->user;
+         
      }
 
-    // public function __toString()
-    //  {
-    //     return $this->user;
-    //     return $this->publicTransport;
-    //     return $this->privateTransport;
-    //     return $this->AtHome;
-    //     return $this->atLaundryService;
-    //     return $this->atFriendsPlace;
-    //     return $this->gentleHouseholdProduct;
-    //     return $this->hospitalProduct;
-    //     return $this->earthProtection;
-    //     return $this->dedicatedPlace;
-    //     return $this->washer;
-    //     return $this->handwashinhandwashing;
-    //     return $this->tumbleDryer;
-    //     return $this->airDrying;
-    //     return $this->ironing;
-        
-
-
-    // }
 
     public function getId(): ?int
     {

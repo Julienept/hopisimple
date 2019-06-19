@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Ad;
+use App\Entity\Tag;
 use App\Form\TagType;
 use App\Form\BonusType;
 use App\Form\EquipmentType;
@@ -11,6 +12,7 @@ use App\Form\EstablishmentType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -49,10 +51,11 @@ class AdType extends AbstractType
             ->add('bonus', BonusType::class, [
                 'label' => 'Démarquez-vous'
             ])
-            ->add('tags', CollectionType::class, [ 
-            'entry_type' => TagType::class,
-            'allow_add'    => true,
-
+            ->add('tags', EntityType::class,[ 
+                'class' => Tag::class,
+                'choice_label' => 'name',
+                'expanded' => true,
+                'multiple' => true,
             ])
             ;
     }
