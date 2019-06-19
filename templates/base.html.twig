@@ -13,147 +13,18 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <i class="fas fa-tint"></i>
-             <a class="navbar-brand" href="{{ path('homepage')}}">hopisimple</a>
-             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
+        {% include 'partials/header.html.twig' %}
 
-            <div class="collapse navbar-collapse" id="navbarColor01">
-                 <ul class="navbar-nav ml-auto">
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Rechercher">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-                    </form>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ path('ads_new')}}">Proposer un service</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('ads_list')}}">Les annonces</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('user_signin')}}">Inscription</a>
-                    </li>
-                    <li class="navbar-item">
-                        <a class="nav-link" href="{{ path('user_login')}}">Connexion</a>
-                    </li>
-                </ul>
-                
-             </div>
-        </nav>
         
         {% block body %}{% endblock %}
+
+        {% include 'partials/footer.html.twig' %}
+
 
           <script src="/cmap/jquery-1.11.1.min.js"></script>
           <script src="cmap/France-map.js"></script>
 
-
-        <!-- Footer -->
-<footer class="page-footer font-small grey lighten-3 pt-4">
-
-  <!-- Footer Links -->
-  <div class="container text-center text-md-left">
-
-    <!-- Grid row -->
-    <div class="row">
-
-      <!-- Grid column -->
-      <div class="col-md-4 mx-auto">
-
-        <!-- Content -->
-        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Qui sommes-nous ?</h5>
-        <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
-          consectetur
-          adipisicing elit.</p>
-
-      </div>
-      <!-- Grid column -->
-
-      <hr class="clearfix w-100 d-md-none">
-
-      <!-- Grid column -->
-      <div class="col-md-2 mx-auto">
-
-        <!-- Links -->
-        <h5 class="font-weight-bold text-uppercase mt-2 mb-3">En savoir plus</h5>
-
-        <ul class="list-unstyled">
-          <li>
-            <a href="#!">Informations légales</a>
-          </li>
-          <li>
-            <a href="#!">Questions fréquentes</a>
-          </li>
-    
-        </ul>
-
-      </div>
-      <!-- Grid column -->
-
-      <hr class="clearfix w-100 d-md-none">
-
-      <!-- Grid column -->
-      <div class="col-md-2 mx-auto">
-
-        <!-- Links -->
-        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Contact</h5>
-
-        <ul class="list-unstyled">
-          <li>
-            <a href="#!">Nous contacter</a>
-          </li>
-          <li>
-            <a href="#!">Nous rejoindre</a>
-          </li>
-        </ul>
-
-      </div>
-    
-  </div>
-  <!-- Footer Links -->
-
-
-  <hr>
-
-  <!-- Social buttons -->
-  <ul class="list-unstyled list-inline text-center">
-    <li class="list-inline-item">
-      <a class="btn-floating btn-fb mx-1">
-        <i class="fab fa-facebook-f"> </i>
-      </a>
-    </li>
-    <li class="list-inline-item">
-      <a class="btn-floating btn-tw mx-1">
-        <i class="fab fa-twitter"> </i>
-      </a>
-    </li>
-    <li class="list-inline-item">
-      <a class="btn-floating btn-gplus mx-1">
-        <i class="fab fa-google-plus-g"> </i>
-      </a>
-    </li>
-    <li class="list-inline-item">
-      <a class="btn-floating btn-li mx-1">
-        <i class="fab fa-linkedin-in"> </i>
-      </a>
-    </li>
-    <li class="list-inline-item">
-      <a class="btn-floating btn-dribbble mx-1">
-        <i class="fab fa-dribbble"> </i>
-      </a>
-    </li>
-  </ul>
-  <!-- Social buttons -->
-
-  <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© 2019 Copyright
-    hopisimple
-  </div>
-  <!-- Copyright -->
-
-</footer>
-<!-- Footer -->
+ 
 
         <script scr="/js/jquery.min.js"></script>
         <script scr="/js/popper.min.js"></script>

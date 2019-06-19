@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <i class="fas fa-tint"></i>
+             <a class="navbar-brand" href="{{ path('homepage')}}">hopisimple</a>
+             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                 <ul class="navbar-nav ml-auto">
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Rechercher">
+                        <button class="btn btn-secondary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('ads_new')}}">Proposer un service</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('ads_list')}}">Les annonces</a>
+                    </li>
+                    {% if app.user %}
+
+                    <li class="navbar-item">
+                        <a class="nav-link" href="{{ path('user_login')}}">Mon compte</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" href="{{ path('user_logout')}}">Déconnexion</a>
+                    </li>
+                    
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('user_signin')}}">Inscription</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" href="{{ path('user_login')}}">Connexion</a>
+                    </li>
+                    
+                    {% endif %}
+                </ul>
+                
+             </div>
+        </nav>
+        
+        {% for label, messages in app. flashes %}
+            <div class="container">
+                <div class="alert aler-{{ label }}">
+                {% for message in messages %}
+                    <p>{{ message | raw }}</p>
+                {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
