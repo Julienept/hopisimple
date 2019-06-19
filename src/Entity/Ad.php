@@ -103,7 +103,7 @@ class Ad
 
     public function __toString()
      {
-         return $this->user;
+         return (string) $this->user;
      }
 
     // public function __toString()

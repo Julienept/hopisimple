@@ -3,7 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Ad;
+use App\Form\TagType;
+use App\Form\BonusType;
+use App\Form\EquipmentType;
+use App\Form\TransportType;
+use App\Form\EstablishmentType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -12,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class AdType extends AbstractType
 {
@@ -30,31 +37,26 @@ class AdType extends AbstractType
             ->add('city', TextType::class, [
                 'label' => 'Ville où se déroulera la prestation'
             ])
-            ->add('privateTransport', RadioType::class, [
-                'label' => 'Votre véhicule personnel'
+            ->add('establishment', EstablishmentType::class, [
+                'label' => 'Lieu de votre prestation'
             ])
-            ->add('publicTransport', RadioType::class, [
-                'label' => 'En transport en commun'
+            ->add('equipment', EquipmentType::class, [
+                'label' => 'Votre équipement'
             ])
-            ->add('atHome', RadioType::class, [
-                'label' => 'A votre domicile',
-                'required' => 'true', 
+            ->add('transport', TransportType::class, [
+                'label' => 'Votre moyen de transport'
+            ])
+            ->add('bonus', BonusType::class, [
+                'label' => 'Démarquez-vous'
+            ])
+            ->add('tags', CollectionType::class, [ 
+            'entry_type' => TagType::class,
+            'allow_add'    => true,
 
-                ])
-            ->add('atLaundryService', RadioType::class)
-            ->add('atFriendsPlace', RadioType::class)
-            ->add('gentleHouseholdProduct')
-            ->add('hospitalProduct')
-            ->add('earthProtection')
-            ->add('dedicatedPlace')
-            ->add('washer')
-            ->add('handwashinhandwashing')
-            ->add('tumbleDryer')
-            ->add('airDrying')
-            ->add('ironing')
-            ->add('tags')
-        ;
+            ])
+            ;
     }
+
 
     public function configureOptions(OptionsResolver $resolver)
     {

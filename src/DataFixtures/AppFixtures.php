@@ -48,6 +48,7 @@ class AppFixtures extends Fixture
 
         }
 
+        // Gestion des utilisateurs
         $users = [];
 
         for($u=1; $u<= 50; $u++)
@@ -132,6 +133,22 @@ class AppFixtures extends Fixture
             $manager->persist($ad);
         }
 
+
+        // Gestion des tags
+
+        for ($t=1; $t<=10; $t++)
+        {
+            $tags = new Tag;
+
+            $name = $faker->word();
+
+            $tags->setName($name)
+                ->addAd($ad);
+
+            $manager->persist($tags);
+
+        }
+        
         $manager->flush();
     }
 }

@@ -36,6 +36,7 @@ class Tag
     public function __toString()
     {
         return $this->getAds;
+        return (string) $this->name;
     }
 
     public function getId(): ?int

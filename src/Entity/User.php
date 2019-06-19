@@ -81,7 +81,7 @@ class User implements UserInterface
     private $ads;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Place", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Place", inversedBy="users", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $place;
