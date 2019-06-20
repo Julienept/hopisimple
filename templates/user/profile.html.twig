@@ -10,6 +10,8 @@
     <span>{{ user.ads | length }} annonces postées</span>
     <img src="{{ user.picture}}" alt="" class="user-picture">
     <p>{{ user.biography }}</p>
+    <a href="{{ path('user_update')}}"><button class="btn btn-primary">Modifier mes infos</button></a>
+
 </div>
 
 

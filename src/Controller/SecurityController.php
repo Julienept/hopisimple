@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
+use App\Entity\PasswordUpdate;
 use App\Form\RegistrationType;
+use App\Form\PasswordUpdateType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SecurityController extends AbstractController
@@ -23,7 +25,7 @@ class SecurityController extends AbstractController
 
         $username = $utils->getLastUsername();
 
-        return $this->render('user/login.html.twig', [
+        return $this->render('security/login.html.twig', [
             'errorDetected' => $error !== null,
             'username' => $username
         ]);
@@ -57,7 +59,7 @@ class SecurityController extends AbstractController
 
         }
 
-        return $this->render('user/registration.html.twig', [
+        return $this->render('security/registration.html.twig', [
             'userForm' => $form->createView()
         ]);
     }
@@ -70,16 +72,53 @@ class SecurityController extends AbstractController
     {
         
 
-        return $this->render('user/index.html.twig');
+        return $this->render('security/index.html.twig');
     }
 
-    /**
-     * @Route("/profil/{id}/modifier", name="user_update")
+     /**
+     * @Route("/profil/modifier-mot-de-passe", name="user_password_update")
+     * @return Response
      */
-    public function update()
+    public function passwordUpdate(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
-        return $this->render('profile/index.html.twig', [
-            'controller_name' => 'ProfileController',
-        ]);
+        $passwordUpdate = new PasswordUpdate;
+
+        $user = $this->getUser();
+
+
+        $form = $this->createForm(PasswordUpdateType::class, $passwordUpdate);
+
+        $form->handleRequest($request);
+
+
+        if($form->isSubmitted() && $form->isValid()) {  
+            if(!password_verify($passwordUpdate->getOldPassword(), $user->getPassword()))
+            {
+
+            }
+            else 
+            {
+              $newPassword = $passwordUpdate->getNewPassword();
+            $hash = $encoder->encodePassword($user, $newPassword);
+
+            $user->setPassword($hash);
+
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "Votre mot de passe a bien été modifié"
+            );
+            return $this->redirectToRoute('your_profile');  
+            }
+            
+
+        }
+        return $this->render('security/password-update.html.twig', [
+                    'passForm' => $form->createView()
+                ]);
+            
     }
+
 }
