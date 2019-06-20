@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ user.firstname }}{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1>Profil de {{user.firstname}}</h1>
+
+    <img src="{{ user.picture}}" alt="" class="user-picture">
+    <p>Biographie :</p>
+    <p>{{ user.biography }}</p>
+    <span>{{ user.ads | length }} annonces postées</span>
+
+    {% for ad in user.ads %}
+    <div class="card border-light mb-3" style="max-width: 20rem;">
+        <div class="card-header"><h6>
+            {{ ad.title }}
+        </h6></div>
+        <div class="card-body">
+        <h4 class="card-title">Prestation</h4>
+        <p class="card-text">{{ ad.description }}</p> 
+          <span>{{ ad.price}} €</span>
+    <span>{{ ad.city }}</span>
+        <a href="{{ path('ads_show', {'id': ad.id}) }}" class="btn btn-primary">Voir</a>
+        </div>
+    </div>
+   
+    {% endfor %}
+
+
+{% endblock %}

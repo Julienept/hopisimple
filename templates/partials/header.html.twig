@@ -20,7 +20,7 @@
                     {% if app.user %}
 
                     <li class="navbar-item">
-                        <a class="nav-link" href="{{ path('user_login')}}">Mon compte</a>
+                        <a class="nav-link" href="{{ path('user_profile', { 'id': app.user.id}) }}">Mon compte</a>
                     </li>
                     <li class="navbar-item">
                         <a class="nav-link" href="{{ path('user_logout')}}">Déconnexion</a>

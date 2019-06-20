@@ -5,6 +5,12 @@
 {% block body %}
 
 <div class="container">
+{% if app.user %}
+<div class="alert alert-info"><p>Vous êtes déjà connecté.</p></div>
+
+
+{% else %}
+
 <h1>Connectez-vous</h1>
 
 <form action="{{ path('user_login')}}" method="POST">
@@ -17,9 +23,6 @@
 <input type="password" class="form-control "name="_password" id="password" required>
 
 </div>
-
-
-
 {% if errorDetected %}
 
 <div class="alert alert-danger">L'adresse mail ou le mot de passe est incorrect</div>
@@ -29,6 +32,11 @@
 <button type="submit" class="btn btn-success">Connexion</button>
 </div>
 </form>
+
+{% endif %}
+
 </div>
+
+
 
 {% endblock %}

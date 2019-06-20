@@ -57,7 +57,7 @@ class AdType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
             ])
-            ;
+            ->add('user');
     }
 
 

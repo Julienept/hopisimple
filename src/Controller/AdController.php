@@ -5,11 +5,15 @@ namespace App\Controller;
 use DateTime;
 use App\Entity\Ad;
 use App\Form\AdType;
+use App\Entity\Contact;
+use App\Form\ContactType;
 use App\Repository\AdRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -41,9 +45,10 @@ class AdController extends AbstractController
     /**
      * @Route("/annonces/ajouter", name="ads_new")
      * @IsGranted("ROLE_USER")
+     * @return Response
      */
     public function new(EntityManagerInterface $em, ObjectManager $manager, Request $request)
-    {
+    {        
         $ad = new Ad();
 
         $form = $this->createForm(AdType::class, $ad);
@@ -61,7 +66,7 @@ class AdController extends AbstractController
                 'success',
                 "Votre annonce a bien été publiée"
             );
-            return $this>redirectToRoute('ad', [
+            return $this>redirectToRoute('ads_show', [
                 'id' => $ad->getId()
             ]);
 
@@ -81,6 +86,12 @@ class AdController extends AbstractController
      */
     public function showAd(AdRepository $AdRepository, $id)
     {
+        // $contact = new Contact;
+        
+        // $form = $form = $this->createForm(ContactType::class, $contact);
+
+        // $form->handleRequest($request);
+
         $ad = $AdRepository->findOneById($id);
 
         return $this->render('ad/show.html.twig', [

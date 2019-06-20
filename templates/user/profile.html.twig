@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre profil{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1>Bonjour {{user.firstname}}</h1>
+
+    <span>{{ user.ads | length }} annonces postées</span>
+    <img src="{{ user.picture}}" alt="" class="user-picture">
+    <p>{{ user.biography }}</p>
+</div>
+
+
+{% endblock %}

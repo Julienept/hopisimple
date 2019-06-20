@@ -14,91 +14,28 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
-  /**
-     * @Route("/connexion", name="user_login")
-     */
-    public function login(AuthenticationUtils $utils)
-    {
-        $error = $utils->getLastAuthenticationError();
-
-        $username = $utils->getLastUsername();
-
-        return $this->render('user/login.html.twig', [
-            'errorDetected' => $error !== null,
-            'username' => $username
-        ]);
-    }
-
+  
     /**
-     * @Route("/inscription", name="user_signin")
-     * @return Response
-     */
-    public function signin(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
-    {
-        $user = new User;
-
-        $form = $this->createForm(RegistrationType::class, $user);
-
-        $form->handleRequest($request);
-
-
-        if($form->isSubmitted() && $form->isValid()) {              $password = $encoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);
-            
-            $manager->persist($user);
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                "Votre compte a bien été crééé"
-            );
-            return $this->redirectToRoute('user_login');
-
-        }
-
-        return $this->render('user/registration.html.twig', [
-            'userForm' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/deconnexion", name="user_logout")
-     * @return void 
-     */
-    public function logout()
-    {
-        
-
-        return $this->render('user/index.html.twig');
-    }
-    /**
-     * @Route("/profil/{id}", name="user_profile")
+     * @Route("/monprofil", name="your_profile")
      */
     public function account()
     {
-        return $this->render('profile/index.html.twig');
-    }
-
-    /**
-     * @Route("/profil/{id}/modifier", name="user_update")
-     */
-    public function update()
-    {
-        return $this->render('profile/index.html.twig', [
-            'controller_name' => 'ProfileController',
+        return $this->render('user/profile.html.twig', [
+            'user' => $this->getUser()
         ]);
     }
 
     /**
-     * @Route("/profil/{id}/supprimer", name="user_delete")
+     * @Route("/utilisateurs/{id}", name="user_profile")
      */
-    public function delete()
+    public function userAccount(User $user)
     {
-        return $this->render('profile/index.html.twig', [
-            'controller_name' => 'ProfileController',
+        return $this->render('user/user-profile.html.twig', [
+            'user' => $user
         ]);
     }
 
+    
      /**
      * @Route("/profil/messages", name="user_messages")
      */

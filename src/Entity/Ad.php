@@ -91,10 +91,16 @@ class Ad
      */
     private $equipment;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Contact", mappedBy="ad")
+     */
+    private $contacts;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
         $this->createdAt = new DateTime();
+        $this->contacts = new ArrayCollection();
 
     }
 
@@ -279,6 +285,34 @@ class Ad
     public function setEquipment(Equipment $equipment): self
     {
         $this->equipment = $equipment;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contact[]
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->addAd($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): self
+    {
+        if ($this->contacts->contains($contact)) {
+            $this->contacts->removeElement($contact);
+            $contact->removeAd($this);
+        }
 
         return $this;
     }
