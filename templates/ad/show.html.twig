@@ -24,45 +24,45 @@
         <h5>
         Où se déroule la prestation ?
         </h5>
-            {% if ad.establishment.place == 'atHome' %}
+            {% if ad.establishment == 'atHome' %}
             <i class="fas fa-home"></i><p>
                 A mon domicile
             </p>
 
-            {% elseif ad.establishment.place == 'atFriendsPlace' %}
+            {% elseif ad.establishment == 'atFriendsPlace' %}
             <i class="fas fa-user-friends"></i>
 
-            {% elseif ad.establishment.place == 'atLaundryShop' %}
+            {% elseif ad.establishment == 'atLaundryShop' %}
             <i class="fas fa-store-alt"></i>
             {% endif %}
 
         <h5>Mes équipements</h5>
 
-            {% if ad.equipment.washing == 'washer' %}
+            {% if ad.washing == 'washer' %}
             <i class="material-icons" style="font-size:56px">local_laundry_service</i>
             {% endif %}
 
             
 
-            {% if ad.equipment.washing == 'handwashing' %}
+            {% if ad.washing == 'handwashing' %}
             <i class="fas fa-home"></i>
             {% endif %}
 
             
 
-            {% if ad.equipment.drying == 'airDrying' %}
+            {% if ad.drying == 'airDrying' %}
             <i class="fas fa-home"></i>
             {% endif %}
 
             
 
-            {% if ad.equipment.drying == 'tumbleDryer' %}
+            {% if ad.drying == 'tumbleDryer' %}
             <i class="fas fa-home"></i>
             {% endif %}
 
             
 
-            {% if ad.equipment.ironing == true %}
+            {% if ad.ironing == true %}
             <i class="fas fa-home"></i>
             {% endif %}
 
@@ -70,34 +70,38 @@
 
         <h5>Mon moyen de locomotion</h5>
 
-            {% if ad.transport.type == 'private' %}
+            {% if ad.transport == 'private' %}
             <i class="fas fa-car"></i>
             
 
-            {% elseif ad.transport.type == 'public' %}
+            {% elseif ad.transport == 'public' %}
             <i class="fas fa-bus-alt"></i>
             {% endif %}
 
 
-            {# <div class="ad-bonus"><h5>Les +</h5>
-            {% if ad.gentleHouseholdProduct == true %}
+            {% if ad.productType or ad.earthProtection or ad.dedicatedSpace is defined %}
+            <div class="ad-bonus"><h5>Les +</h5>
+            {% if ad.productType == 'gentleHouseholdProduct' %}
             <i class="fas fa-bus-alt"></i>
             {% endif %}
             
             
-            {% if ad.hospitalProduct == true %}
+            {% if ad.productType == 'hospitalProduct' %}
             <i class="fas fa-bus-alt"></i>
             {% endif %}
             
             
-            {% if ad.earthProtection == true %}
+            {# {% if ad.earthProtection == true %}
             <i class="fas fa-bus-alt"></i>
+            {% endif %} #}
+            
+            
+            {% if ad.dedicatedSpace == true %}
+            <i class="fas fa-bus-alt"></i>
+            {% endif %}</div>
             {% endif %}
-            
-            
-            {% if ad.dedicatedPlace == true %}
-            <i class="fas fa-bus-alt"></i>
-            {% endif %}</div> #}
+
+
             
     </div> 
 
