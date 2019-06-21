@@ -1,11 +1,8 @@
 <?php
-
 namespace App\Repository;
-
 use App\Entity\Place;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-
 /**
  * @method Place|null find($id, $lockMode = null, $lockVersion = null)
  * @method Place|null findOneBy(array $criteria, array $orderBy = null)
@@ -18,7 +15,6 @@ class PlaceRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Place::class);
     }
-
     // /**
     //  * @return Place[] Returns an array of Place objects
     //  */
@@ -35,7 +31,6 @@ class PlaceRepository extends ServiceEntityRepository
         ;
     }
     */
-
     /*
     public function findOneBySomeField($value): ?Place
     {

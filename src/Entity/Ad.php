@@ -68,33 +68,51 @@ class Ad
      */
     private $city;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Establishment", inversedBy="ad", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $establishment;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Transport", inversedBy="ad", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $transport;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Bonus", inversedBy="ad", cascade={"persist", "remove"})
-     */
-    private $bonus;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Equipment", inversedBy="ad", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $equipment;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Contact", mappedBy="ad")
      */
     private $contacts;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $washing;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $drying;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $ironing;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $establishment;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $transport;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $productType;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $earthProtection;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $dedicatedSpace;
 
     public function __construct()
     {
@@ -241,54 +259,6 @@ class Ad
         return $this;
     }
 
-    public function getEstablishment(): ?Establishment
-    {
-        return $this->establishment;
-    }
-
-    public function setEstablishment(Establishment $establishment): self
-    {
-        $this->establishment = $establishment;
-
-        return $this;
-    }
-
-    public function getTransport(): ?Transport
-    {
-        return $this->transport;
-    }
-
-    public function setTransport(Transport $transport): self
-    {
-        $this->transport = $transport;
-
-        return $this;
-    }
-
-    public function getBonus(): ?Bonus
-    {
-        return $this->bonus;
-    }
-
-    public function setBonus(?Bonus $bonus): self
-    {
-        $this->bonus = $bonus;
-
-        return $this;
-    }
-
-    public function getEquipment(): ?Equipment
-    {
-        return $this->equipment;
-    }
-
-    public function setEquipment(Equipment $equipment): self
-    {
-        $this->equipment = $equipment;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Contact[]
      */
@@ -313,6 +283,102 @@ class Ad
             $this->contacts->removeElement($contact);
             $contact->removeAd($this);
         }
+
+        return $this;
+    }
+
+    public function getWashing(): ?string
+    {
+        return $this->washing;
+    }
+
+    public function setWashing(string $washing): self
+    {
+        $this->washing = $washing;
+
+        return $this;
+    }
+
+    public function getDrying(): ?string
+    {
+        return $this->drying;
+    }
+
+    public function setDrying(string $drying): self
+    {
+        $this->drying = $drying;
+
+        return $this;
+    }
+
+    public function getIroning(): ?bool
+    {
+        return $this->ironing;
+    }
+
+    public function setIroning(?bool $ironing): self
+    {
+        $this->ironing = $ironing;
+
+        return $this;
+    }
+
+    public function getEstablishment(): ?string
+    {
+        return $this->establishment;
+    }
+
+    public function setEstablishment(string $establishment): self
+    {
+        $this->establishment = $establishment;
+
+        return $this;
+    }
+
+    public function getTransport(): ?string
+    {
+        return $this->transport;
+    }
+
+    public function setTransport(string $transport): self
+    {
+        $this->transport = $transport;
+
+        return $this;
+    }
+
+    public function getProductType(): ?string
+    {
+        return $this->productType;
+    }
+
+    public function setProductType(?string $productType): self
+    {
+        $this->productType = $productType;
+
+        return $this;
+    }
+
+    public function getEarthProtection(): ?string
+    {
+        return $this->earthProtection;
+    }
+
+    public function setEarthProtection(?string $earthProtection): self
+    {
+        $this->earthProtection = $earthProtection;
+
+        return $this;
+    }
+
+    public function getDedicatedSpace(): ?bool
+    {
+        return $this->dedicatedSpace;
+    }
+
+    public function setDedicatedSpace(?bool $dedicatedSpace): self
+    {
+        $this->dedicatedSpace = $dedicatedSpace;
 
         return $this;
     }

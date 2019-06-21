@@ -19,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
@@ -39,18 +40,57 @@ class AdType extends AbstractType
             ->add('city', TextType::class, [
                 'label' => 'Ville où se déroulera la prestation'
             ])
-            ->add('establishment', EstablishmentType::class, [
-                'label' => 'Lieu de votre prestation'
+            ->add('establishment', ChoiceType::class, [
+                'label' => 'Lieu de la prestation',
+                'choices' => [
+                    'A votre domicile' => 'A votre domicile',
+                    'Dans un lavomatique' => 'Transport en Dans un lavomatique',
+                    'Chez un ami' => 'Chez un ami'
+                ],
+                'expanded' => true,
+                ])
+            ->add('washing', ChoiceType::class, [
+                'label' => 'Type de lavage',
+                'choices' => [
+                    'Machine à laver' => 'Machine à laver',
+                    'Lavage à la main' => 'Lavage à la main'
+                ],
+                'expanded' => true,
             ])
-            ->add('equipment', EquipmentType::class, [
-                'label' => 'Votre équipement'
-            ])
-            ->add('transport', TransportType::class, [
-                'label' => 'Votre moyen de transport'
-            ])
-            ->add('bonus', BonusType::class, [
-                'label' => 'Démarquez-vous'
-            ])
+            ->add('drying', ChoiceType::class, [
+                'label' => 'Type de séchage',
+                'choices' => [
+                    'Sèche-linge' => 'Sèche-linge',
+                    'Sèchage à l\'air libre' => 'Sèchage à l\'air libre'
+                ],
+                'expanded' => true,
+                ])
+                ->add('ironing', CheckboxType::class, [
+                    'label' => 'Repassage'
+                ])
+            ->add('transport', ChoiceType::class, [
+                'label' => 'Type de transport',
+                'choices' => [
+                    'Votre véhicule personnel' => 'Votre véhicule personnel',
+                    'Transport en commun' => 'Transport en commun',
+                    'Véhicule d\'un ami' => 'Véhicule d\'un ami'
+                ],
+                'expanded' => true,
+                ])
+            ->add('productType', ChoiceType::class, [
+                    'label' => 'Type de produits',
+                    'choices' => [
+                        'Produits ménagers doux' => 'Produits ménagers doux',
+                        'Produits hospitaliers' => 'Produits hospitaliers'
+                    ],
+                    'expanded' => true,
+                ])
+            ->add('earthProtection', CheckboxType::class, [
+                    'label' => 'Respect de l\'environnement',
+                    ])
+            ->add('dedicatedSpace', CheckboxType::class, [
+                    'label' => 'Espace dédié',
+                    ])
             ->add('tags', EntityType::class,[ 
                 'class' => Tag::class,
                 'choice_label' => 'name',

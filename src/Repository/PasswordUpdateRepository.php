@@ -1,11 +1,8 @@
 <?php
-
 namespace App\Repository;
-
 use App\Entity\PasswordUpdate;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-
 /**
  * @method PasswordUpdate|null find($id, $lockMode = null, $lockVersion = null)
  * @method PasswordUpdate|null findOneBy(array $criteria, array $orderBy = null)
@@ -18,7 +15,6 @@ class PasswordUpdateRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, PasswordUpdate::class);
     }
-
     // /**
     //  * @return PasswordUpdate[] Returns an array of PasswordUpdate objects
     //  */
@@ -35,7 +31,6 @@ class PasswordUpdateRepository extends ServiceEntityRepository
         ;
     }
     */
-
     /*
     public function findOneBySomeField($value): ?PasswordUpdate
     {
