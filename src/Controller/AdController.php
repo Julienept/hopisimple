@@ -51,13 +51,15 @@ class AdController extends AbstractController
     {        
         $ad = new Ad();
 
+        $user = $this->getUser();
+        $ad->setUser($user);
+
         $form = $this->createForm(AdType::class, $ad);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $ad->setCreatedAt(new \DateTime());
-            $ad->setUser($this->getUser());
+           
 
             $manager->persist($ad);
             $manager->flush();
@@ -66,7 +68,9 @@ class AdController extends AbstractController
                 'success',
                 "Votre annonce a bien été publiée"
             );
-
+            return $this->redirectToRoute('ads_show', [
+                            'id' => $ad->getId() 
+                        ]);
 
 
         }
