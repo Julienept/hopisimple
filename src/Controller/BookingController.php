@@ -19,26 +19,19 @@ class BookingController extends AbstractController
      */
     public function booking(Ad $ad, Request $request, ObjectManager $manager)
     {
-        $booking = new Booking;
-
-        $user = $this->getUser();
-                    $booking->setBooker($user)
-                        ->setAd($ad)
-                    ;
-
-        
+        $booking = new Booking;        
 
         $form = $this->createForm(BookingType::class, $booking);
+
+        $user = $this->getUser();
+                $booking->setBooker($user) 
+                        ->setAd($ad)
+                            ;
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
-            $duration = $booking->getEndDate->diff($booking->getStartDate);
-
-             $amount = $ad->getPrice() * $duration;
-
-             $booking->setAmount($amount);
 
             $manager->persist($booking);
 

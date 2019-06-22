@@ -7,13 +7,11 @@ use App\Entity\Ad;
 use App\Entity\Tag;
 use App\Entity\User;
 use App\Entity\Place;
-use App\Entity\Transport;
 use Doctrine\Migrations\Version\Factory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Entity\Establishment;
-use App\Entity\Equipment;
+
 
 class AppFixtures extends Fixture
 {
@@ -94,31 +92,13 @@ class AppFixtures extends Fixture
 
         $irRand = $ironing[mt_rand(0,1)];
 
-        // ---
         $est = ['atHome', 'atFriendsPlace', 'atLaundyShop'];
         
         $estRand = $est[mt_rand(0,2)];
 
-        $adEst = new Establishment;
-
-        $adEst->setPlace($estRand);
-
-        $eq = new Equipment;
-
-        $eq->setWashing($washRand)
-            ->setDrying($dryRand)
-            ->setIroning($irRand)
-            ;
-
-        // ---
         $transport = ['private', 'transport'];
 
         $transRand = $transport[mt_rand(0,1)];
-
-        $adTransport = new Transport;
-
-        $adTransport->setType($transRand);
-
 
             $ad->setTitle($faker->sentence(1))
                 ->setDescription($faker->paragraph(2))
@@ -126,9 +106,11 @@ class AppFixtures extends Fixture
                 ->setCreatedAt(new \DateTime())
                 ->setCity($faker->city)
                 ->setUser($user)
-                ->setEstablishment($adEst)
-                ->setTransport($adTransport)
-                ->setEquipment($eq);
+                ->setEstablishment($estRand)
+                ->setTransport($transRand)
+                ->setWashing($washRand)
+                ->setDrying($dryRand)
+                ->setIroning($irRand);
 
             $manager->persist($ad);
         }
