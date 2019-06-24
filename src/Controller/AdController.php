@@ -51,15 +51,13 @@ class AdController extends AbstractController
     {        
         $ad = new Ad();
 
-        $user = $this->getUser();
-        $ad->setUser($user);
-
         $form = $this->createForm(AdType::class, $ad);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-           
+            $user = $this->getUser();
+            $ad->setUser($user);           
 
             $manager->persist($ad);
             $manager->flush();

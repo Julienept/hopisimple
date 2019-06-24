@@ -14,7 +14,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 class BookingController extends AbstractController
 {
     /**
-     * @Route("/annonces/{id}/booking", name="ad_booking")
+     * @Route("/annonces/{id}/reserver", name="ad_booking")
      * @IsGranted("ROLE_USER")
      */
     public function booking(Ad $ad, Request $request, ObjectManager $manager)
@@ -23,21 +23,22 @@ class BookingController extends AbstractController
 
         $form = $this->createForm(BookingType::class, $booking);
 
-        $user = $this->getUser();
-                $booking->setBooker($user) 
-                        ->setAd($ad)
-                            ;
-
+        
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
+            $user = $this->getUser();
+                $booking->setBooker($user) 
+                        ->setAd($ad)
+                            ;
+
 
             $manager->persist($booking);
 
             $manager->flush();
 
-            return $this->redirectToRoute('booking_success', [
+            return $this->redirectToRoute('booking_show', [
                 'id' => $booking->getId() 
             ]);
         }
@@ -45,6 +46,18 @@ class BookingController extends AbstractController
         return $this->render('booking/booking.html.twig', [
             'ad' => $ad,
             'bookingForm' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/reservation/{id}", name="booking_show")
+     * @return Response
+     */
+    public function show(Booking $booking)
+    {
+
+        return $this->render('booking/show.html.twig', [
+            'booking' => $booking
         ]);
     }
 }

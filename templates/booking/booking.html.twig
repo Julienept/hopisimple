@@ -13,9 +13,12 @@
         <div class="row">
             <div class="col">{{ form_row(bookingForm.startDate)}}</div>
             <div class="col">{{ form_row(bookingForm.endDate)}}</div>
+
+          
         
         </div>
-
+        <h4 class="mt-3">Une précision à apporter ?</h4>
+        {{ form_row(bookingForm.comment) }}
         <h4>Montant total de la prestation : <span id="amount">...</span> €</h4>
         <span id="days">...</span> jour(s) à {{ad.price}}.
         <button type="submit" class="btn btn-primary">Réserver</button>
