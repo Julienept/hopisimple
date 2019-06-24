@@ -122,15 +122,6 @@ class AdController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/annonces/{id}/prestataire", name="ads_profile")
-     */
-    public function profile()
-    {
-        return $this->render('ad/index.html.twig', [
-            'controller_name' => 'AdController',
-        ]);
-    }
 
     /**
      * @Route("/annonces/{id}/prestataire/notation", name="ads_profile_rating")
@@ -142,15 +133,6 @@ class AdController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/annonces/{id}/prestataire/contacter", name="ads_profile_contact")
-     */
-    public function profileContact()
-    {
-        return $this->render('ad/index.html.twig', [
-            'controller_name' => 'AdController',
-        ]);
-    }
   
     /**
      * @Route("/annonces/{id}/signaler", name="ads_report")

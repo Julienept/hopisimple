@@ -2,6 +2,7 @@
 
  {% block title %}Votre réservation numéro {{booking.id}}{% endblock %}
 
+
 {% block body %}
 
 {% set ad = booking.ad %}
@@ -11,18 +12,28 @@
 
     <h1>Votre réservation numéro {{booking.id}}</h1>
 
+    {% if app.request.query.get('withAlert')%}
+    
+    <div class="alert alert-success">
+    <h4 class="alert-heading">Votre réservation a bien été effectuée !</h4>
+    <p>Votre réservation auprès de <strong>{{ provider.firstname }}</strong> pour le {{ booking.startDate |date('Y-m-d') }} a bien été prise en compte.
+    </p>
+    </div>
+
+    {% endif %}
+
      <div class="row">
             <div class="col">
                 <div class="alert alert-light">
                     <h2>Détails</h2>
                     <dl class="row">
-                        <dt class="col-md-4">Numéro</dt>
+                        <dt class="col-md-4">Numéro de réservation</dt>
                         <dd class="col-md-8">{{booking.id}}</dd>
-                        <dt class="col-md-4">Date d'arrivée</dt>
+                        <dt class="col-md-4">Date de début de prestation</dt>
                         <dd class="col-md-8">{{booking.startDate | date('d/m/Y')}}</dd>
-                        <dt class="col-md-4">Date de départ</dt>
+                        <dt class="col-md-4">Date de fin de prestation.</dt>
                         <dd class="col-md-8">{{booking.endDate | date('d/m/Y')}}</dd>
-                        <dt class="col-md-4">Nombre de nuits</dt>
+                        <dt class="col-md-4">Nombre de jours</dt>
                         <dd class="col-md-8">{{booking.duration}}</dd>
                         <dt class="col-md-4">Montant total</dt>
                         <dd class="col-md-8">{{booking.amount | number_format(2, ',', ' ')}} &euro;</dd>

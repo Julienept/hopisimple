@@ -6,6 +6,8 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\PrePersist;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookingRepository")
@@ -34,11 +36,13 @@ class Booking
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Date()
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Date()
      */
     private $endDate;
 
@@ -77,12 +81,49 @@ class Booking
          }
      }
 
-    public function __construct()
+     /**
+     *
+     * @return boolean 
+     */
+    public function isAvailableDate()
     {
-        $this->createdAt = new DateTime();
+        $notAvailableDays = $this->ad->getNotAvailableDate(); 
         
-    
+        $bookingDays = $this->getDays();
+
+        $formatDay = function($day){
+            return $day->format('Y-m-d');
+            };
+
+        $days = array_map($formatDay, $bookingDays);
+
+        $notAvailable = array_map($formatDay, $notAvailableDays);
+
+        foreach($days as $day)
+        {
+            if(array_search($day, $notAvailable) !== false) return false;
+        }
+
+        return true;
     }
+
+    /**
+     * @return Array
+     */
+    public function getDays()
+    {
+        $results = range(
+            $this->startDate->getTimestamp(), 
+            $this->endDate->getTimestamp(), 
+            24 * 60 * 60);
+
+        $days = array_map(function($dayTimestamp){
+            return new \DateTime(date('Y-m-d', $dayTimestamp));
+        }, $results);
+        
+        return $days;
+    }
+
 
      public function getDuration()
      {

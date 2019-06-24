@@ -48,6 +48,12 @@ class Contact
      */
     private $ad;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="messages")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
+
     public function __construct()
     {
         $this->ad = new ArrayCollection();
@@ -140,6 +146,18 @@ class Contact
         if ($this->ad->contains($ad)) {
             $this->ad->removeElement($ad);
         }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }
