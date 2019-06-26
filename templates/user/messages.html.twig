@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos messages{% endblock %}
+
+{% block body %}
+
+<div class="container">
+<h4>Messagerie</h4>
+
+{% for message in contact %}
+{{ message.message }}
+{% endfor %}
+
+</div>
+
+{% endblock %}
