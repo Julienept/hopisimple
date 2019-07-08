@@ -7,9 +7,9 @@ use App\Form\AdminBookingType;
 use App\Repository\BookingRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class AdminBookingController extends AbstractController
 {
@@ -24,26 +24,6 @@ class AdminBookingController extends AbstractController
     }
 
     /**
-     * @Route("/admin/bookings/{id}", name="ads_show")
-     * 
-     * @return Response
-     */
-    public function booking(BookingRepository $repo, $id)
-    {
-        // $contact = new Contact;
-        
-        // $form = $form = $this->createForm(ContactType::class, $contact);
-
-        // $form->handleRequest($request);
-
-        $booking = $repo->findOneById($id);
-
-        return $this->render('ad/show.html.twig', [
-            'booking' => $booking,
-        ]);
-    }
-
-    /**
      * @Route("/admin/bookings/{id}/edit", name="admin_booking_edit", )
      * 
      * @return Response
@@ -52,6 +32,7 @@ class AdminBookingController extends AbstractController
         
         $form = $this->createForm(AdminBookingType::class, $booking);
         $form->handleRequest($request);
+
         if($form->isSubmitted() && $form->isValid()) {
             $booking->setAmount(0);
             $manager->persist($booking);
@@ -60,7 +41,7 @@ class AdminBookingController extends AbstractController
                 'success', 
                 "La réservation n°{$booking->getId()} a bien été modifiée" 
             );
-            return $this->redirectToRoute("admin_bookings");
+            return $this->redirectToRoute('admin_bookings');
         }
         return $this->render('admin/booking/edit.html.twig', [
             'form' => $form->createView(),
@@ -74,12 +55,15 @@ class AdminBookingController extends AbstractController
      * @return Response
      */
     public function delete(Booking $booking, ObjectManager $manager) {
+
         $manager->remove($booking);
+
         $manager->flush();
+
         $this->addFlash(
             'success',
             "La réservation a bien été supprimée"
         );
-        return $this->redirectToRoute("admin_booking_index");
+        return $this->redirectToRoute('admin_bookings');
     }
 }
