@@ -2,6 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\User;
+use App\Repository\UserRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -9,25 +12,32 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class AdminUserController extends AbstractController
 {
      /**
-     * @Route("/admin/login", name="admin_login")
+     * @Route("/admin/users", name="admin_users")
      */
-    public function login(AuthenticationUtils $utils)
+    public function index(UserRepository $repo)
     {
-        $error = $utils->getLastAuthenticationError();
-
-        $username = $utils->getLastUsername();
-
-        return $this->render('admin/user/login.html.twig', [
-            'hasError' => $error !== null,
-            'username' => $username
+        return $this->render('admin/user/index.html.twig', [
+            'users' => $repo->findAll(),
         ]);
     }
-    /** 
-     * @Route("/admin/logout", name="admin_logout")
+
+    /**
+     * 
+     * @Route("/admin/users/{id}/delete", name="admin_users_delete")
      *
-     * @return void
+     * @return Response
      */
-    public function logout() {
-        // ...
+    public function delete(User $user, ObjectManager $manager) {
+
+        $manager->remove($user);
+
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            "L'utilisateur a bien été supprimé"
+        );
+        return $this->redirectToRoute('admin_users');
     }
+   
 }

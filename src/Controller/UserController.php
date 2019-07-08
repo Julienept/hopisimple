@@ -70,7 +70,7 @@ class UserController extends AbstractController
         
     
     /**
-     * @Route("/utilisateurs/{id}", name="user_profile")
+     * @Route("/utilisateus/{id}", name="user_profile")
      */
     public function userAccount(User $user)
     {
@@ -80,7 +80,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateurs/{id}/contacter", name="user_contact")
+     * @Route("/utilisateurs/{id}/contact", name="user_contact")
      * @IsGranted("ROLE_USER")
      */
     public function userContact(EntityManagerInterface $em, ObjectManager $manager, Request $request, User $userContact, \Swift_Mailer $mailer)

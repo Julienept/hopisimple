@@ -111,22 +111,6 @@ class User implements UserInterface
 
 
     }
-
-    // public function __toString()
-    //  {
-    //     return (string) $this->title;
-    //     return (string) $this->firstname;
-    //     return (string) $this->lastname;
-    //     return (string) $this->email;
-    //     return (string) $this->password;
-    //     return (string) $this->picture;
-    //     return (string) $this->biography;
-    //     return (string) $this->inscriptionDate;
-    //     return (string) $this->rating;
-    //     return (string) $this->biography;
-       
-    //  }
-    
    
     public function getId(): ?int
     {
