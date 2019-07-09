@@ -48,6 +48,7 @@ class AdminBookingController extends AbstractController
             'booking' => $booking
         ]);
     }
+    
     /**
      * 
      * @Route("/admin/bookings/{id}/delete", name="admin_booking_delete")

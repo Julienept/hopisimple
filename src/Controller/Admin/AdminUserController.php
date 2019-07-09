@@ -3,7 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Form\AdminUserType;
+use App\Form\AdminBookingType;
 use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,6 +25,31 @@ class AdminUserController extends AbstractController
     }
 
     /**
+     * @Route("/admin/users/{id}/edit", name="admin_users_edit", )
+     * 
+     * @return Response
+     */
+    public function edit(User $user, Request $request, ObjectManager $manager) {        
+        
+        $form = $this->createForm(AdminUserType::class, $user);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($user);
+            $manager->flush();
+            $this->addFlash(
+                'success', 
+                "L'utilisateur n°{$user->getId()} a bien été modifié." 
+            );
+            return $this->redirectToRoute('admin_users');
+        }
+        return $this->render('admin/user/edit.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user
+        ]);
+    }
+
+    /**
      * 
      * @Route("/admin/users/{id}/delete", name="admin_users_delete")
      *
@@ -35,7 +63,7 @@ class AdminUserController extends AbstractController
 
         $this->addFlash(
             'success',
-            "L'utilisateur a bien été supprimé"
+            "L'utilisateur a bien été supprimé."
         );
         return $this->redirectToRoute('admin_users');
     }

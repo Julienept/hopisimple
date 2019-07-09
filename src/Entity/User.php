@@ -71,11 +71,6 @@ class User implements UserInterface
     private $inscriptionDate;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $rating;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Ad", mappedBy="user", orphanRemoval=true)
      */
     private $ads;
@@ -101,6 +96,16 @@ class User implements UserInterface
      */
     private $messages;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Rating", mappedBy="user", orphanRemoval=true)
+     */
+    private $rating;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Rating", inversedBy="provider")
+     */
+    private $serviceNote;
+
     
     public function __construct()
     {
@@ -108,8 +113,12 @@ class User implements UserInterface
         $this->inscriptionDate = new DateTime();
         $this->bookings = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->rating = new ArrayCollection();
+    }
 
-
+    public function __toString()
+    {
+        return (string) $this->getServiceNote();
     }
    
     public function getId(): ?int
@@ -213,18 +222,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRating(): ?float
-    {
-        return $this->rating;
-    }
-
-    public function setRating(?float $rating): self
-    {
-        $this->rating = $rating;
-
-        return $this;
-    }
-
+    
     /**
      * @return Collection|Ad[]
      */
@@ -347,6 +345,49 @@ class User implements UserInterface
                 $message->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRating(): Collection
+    {
+        return $this->rating;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->rating->contains($rating)) {
+            $this->rating[] = $rating;
+            $rating->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->rating->contains($rating)) {
+            $this->rating->removeElement($rating);
+            // set the owning side to null (unless already changed)
+            if ($rating->getUser() === $this) {
+                $rating->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getServiceNote(): ?Rating
+    {
+        return $this->serviceNote;
+    }
+
+    public function setServiceNote(?Rating $serviceNote): self
+    {
+        $this->serviceNote = $serviceNote;
 
         return $this;
     }
