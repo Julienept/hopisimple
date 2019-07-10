@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContactRepository")
@@ -49,14 +50,19 @@ class Contact
     private $ad;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="messages")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="datetime")
      */
-    private $author;
+    private $createdAt;
+
+    public function getFullname() {
+        return "{$this->firstname} {$this->lastname}";
+    }
 
     public function __construct()
     {
         $this->ad = new ArrayCollection();
+        $this->createdAt = new DateTime();
+
     }
 
     public function getId(): ?int
@@ -150,14 +156,14 @@ class Contact
         return $this;
     }
 
-    public function getAuthor(): ?User
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->author;
+        return $this->createdAt;
     }
 
-    public function setAuthor(?User $author): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->author = $author;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

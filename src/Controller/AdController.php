@@ -67,8 +67,8 @@ class AdController extends AbstractController
                 "Votre annonce a bien été publiée"
             );
             return $this->redirectToRoute('ads_show', [
-                            'id' => $ad->getId() 
-                        ]);
+                'id' => $ad->getId() 
+            ]);
 
 
         }
@@ -80,7 +80,7 @@ class AdController extends AbstractController
     
     }
 
-     /**
+    /**
      * @Route("/annonces/{id}", name="ads_show")
      * 
      * @return Response

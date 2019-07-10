@@ -92,11 +92,6 @@ class User implements UserInterface
     private $bookings;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="author", orphanRemoval=true)
-     */
-    private $messages;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Rating", mappedBy="author", orphanRemoval=true)
      */
     private $ratings;
@@ -108,7 +103,6 @@ class User implements UserInterface
         $this->ads = new ArrayCollection();
         $this->inscriptionDate = new DateTime();
         $this->bookings = new ArrayCollection();
-        $this->messages = new ArrayCollection();
         $this->ratings = new ArrayCollection();
     }
    
@@ -309,36 +303,6 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Contact[]
-     */
-    public function getMessages(): Collection
-    {
-        return $this->messages;
-    }
-
-    public function addMessage(Contact $message): self
-    {
-        if (!$this->messages->contains($message)) {
-            $this->messages[] = $message;
-            $message->setAuthor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMessage(Contact $message): self
-    {
-        if ($this->messages->contains($message)) {
-            $this->messages->removeElement($message);
-            // set the owning side to null (unless already changed)
-            if ($message->getAuthor() === $this) {
-                $message->setAuthor(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Rating[]

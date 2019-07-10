@@ -37,7 +37,7 @@ class AdminRatingController extends AbstractController
                 'success', 
                 "La notation n°{$rating->getId()} a bien été modifiée" 
             );
-            return $this->redirectToRoute('admin_ratings');
+            return $this->redirectToRoute('admin_rating');
         }
         return $this->render('admin/rating/edit.html.twig', [
             'form' => $form->createView(),
