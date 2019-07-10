@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,26 +27,21 @@ class Rating
     private $comment;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="rating")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $author;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="serviceNote")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="ratings")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $provider;
+    private $author;
 
-    public function __construct()
-    {
-        $this->provider = new ArrayCollection();
-    }
-
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ad", inversedBy="ratings")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $ad;
 
     public function getId(): ?int
     {
@@ -79,18 +72,6 @@ class Rating
         return $this;
     }
 
-    public function getAuthor(): ?User
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(?User $user): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -103,33 +84,26 @@ class Rating
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getProvider(): Collection
+    public function getAuthor(): ?User
     {
-        return $this->provider;
+        return $this->author;
     }
 
-    public function addProvider(User $provider): self
+    public function setAuthor(?User $author): self
     {
-        if (!$this->provider->contains($provider)) {
-            $this->provider[] = $provider;
-            $provider->setServiceNote($this);
-        }
+        $this->author = $author;
 
         return $this;
     }
 
-    public function removeProvider(User $provider): self
+    public function getAd(): ?Ad
     {
-        if ($this->provider->contains($provider)) {
-            $this->provider->removeElement($provider);
-            // set the owning side to null (unless already changed)
-            if ($provider->getServiceNote() === $this) {
-                $provider->setServiceNote(null);
-            }
-        }
+        return $this->ad;
+    }
+
+    public function setAd(?Ad $ad): self
+    {
+        $this->ad = $ad;
 
         return $this;
     }

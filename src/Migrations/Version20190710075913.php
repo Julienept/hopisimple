@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190709150350 extends AbstractMigration
+final class Version20190710075913 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,9 +22,9 @@ final class Version20190709150350 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE user ADD service_note_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE user ADD CONSTRAINT FK_8D93D649E9695AC9 FOREIGN KEY (service_note_id) REFERENCES rating (id)');
-        $this->addSql('CREATE INDEX IDX_8D93D649E9695AC9 ON user (service_note_id)');
+        $this->addSql('CREATE TABLE rating (id INT AUTO_INCREMENT NOT NULL, author_id INT NOT NULL, ad_id INT NOT NULL, notation DOUBLE PRECISION DEFAULT NULL, comment LONGTEXT DEFAULT NULL, created_at DATETIME NOT NULL, INDEX IDX_D8892622F675F31B (author_id), INDEX IDX_D88926224F34D596 (ad_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE rating ADD CONSTRAINT FK_D8892622F675F31B FOREIGN KEY (author_id) REFERENCES user (id)');
+        $this->addSql('ALTER TABLE rating ADD CONSTRAINT FK_D88926224F34D596 FOREIGN KEY (ad_id) REFERENCES ad (id)');
     }
 
     public function down(Schema $schema) : void
@@ -32,8 +32,6 @@ final class Version20190709150350 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE user DROP FOREIGN KEY FK_8D93D649E9695AC9');
-        $this->addSql('DROP INDEX IDX_8D93D649E9695AC9 ON user');
-        $this->addSql('ALTER TABLE user DROP service_note_id');
+        $this->addSql('DROP TABLE rating');
     }
 }

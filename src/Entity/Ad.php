@@ -119,20 +119,21 @@ class Ad
      */
     private $bookings;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Rating", mappedBy="ad", orphanRemoval=true)
+     */
+    private $ratings;
+
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
         $this->createdAt = new DateTime();
         $this->contacts = new ArrayCollection();
         $this->bookings = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
 
     }
-
-    public function __toString()
-     {
-         return (string) $this->user;
-         
-     }
 
      /**
      * @return Array
@@ -434,6 +435,37 @@ class Ad
             // set the owning side to null (unless already changed)
             if ($booking->getAd() === $this) {
                 $booking->setAd(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setAd($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->contains($rating)) {
+            $this->ratings->removeElement($rating);
+            // set the owning side to null (unless already changed)
+            if ($rating->getAd() === $this) {
+                $rating->setAd(null);
             }
         }
 
