@@ -55,7 +55,7 @@
                             <i class="fas fa-comments fa-3x"></i>
                         </div>
                         <div class="col-8">
-                            <h4 class="card-title">avis</h4>
+                            <h4 class="card-title">Notations</h4>
                         </div>
                     </div>
                 </div>
@@ -73,6 +73,7 @@
                         <tr>
                             <th>Annonce</th>
                             <th>Prestataire</th>
+                            <th>Notations</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -83,6 +84,7 @@
                             <td>
                                 <img src="{{ad.user.picture}}" alt="" class="avatar avatar-micro"> {{ad.user.firstName}} {{ad.user.lastName}}
                             </td>
+                            <td>{{ad.ratings | length }}</td>
                             <td>
                         <a href="{{ path('admin_ads_edit', {'id': ad.id})}}" class="btn btn-primary">
                             <i class="fas fa-pen"></i>

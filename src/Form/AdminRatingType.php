@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Ad;
 use App\Entity\User;
 use App\Entity\Rating;
 use Symfony\Component\Form\AbstractType;
@@ -21,12 +22,6 @@ class AdminRatingType extends AbstractType
             ])
             ->add('comment', TextareaType::class, [
                 'label' => 'Commentaire'
-            ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => function($user) {
-                    return $user->getFirstName() . " " . strtoupper($user->getLastName());
-                }
             ])
         ;
     }

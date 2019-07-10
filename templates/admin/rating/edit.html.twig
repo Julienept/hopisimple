@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la notation n°{{rating.id}}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h1 class="my-5">Modifier la notation n°{{rating.id}}</h1>
+        <div class="container">
+        {{ form_start(form)}}
+        {{ form_widget(form)}}
+        <h6>Auteur de la notation</h6>
+        <p>{{ rating.author.firstName}}</p>
+        <h6>Annonce de la notation</h6>
+        <p>{{ rating.ad.title}}</p>
+
+        <button type="submit" class="btn btn-primary">Valider</button>
+        {{ form_end(form)}}</div>
+        </div>
+{% endblock %}
