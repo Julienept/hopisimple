@@ -115,8 +115,8 @@
                 
                 <p>{{ ad.user.biography }}</p>
                 <img src="{{ ad.user.picture }}" alt="user-profile" class="user-picture">
-                <span>{{ ad.user.rating }}</span>
-                <a href="#" class="btn btn-success">Contacter</a></div>
+                <span>Note</span>
+                <a href="{{ path('message_provider', {'id': ad.user.id})}}" class="btn btn-success">Contacter</a></div>
 
         <div class="ad-date">
             <h5>Sélectionner vos dates</h5>

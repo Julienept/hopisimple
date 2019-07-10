@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration des messages{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="my-5">Administration des messages</h1>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Date</th>
+                    <th>Auteur</th>
+                    <th>Contenu</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for contact in contacts %}
+                <tr>
+                    <td>{{contact.id}}</td>
+                    <td>{{contact.createdAt|date('d/m/Y H:i')}}</td>
+                    <td>{{contact.fullname}}</td>
+                    <td>{{contact.message}}</td>
+        
+                    <td>
+                        <a href="{{ path('admin_contact_delete', {'id': contact.id}) }}" class="btn btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        
+        </table>
+        
+    </div>
+{% endblock %}

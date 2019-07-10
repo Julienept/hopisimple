@@ -124,6 +124,11 @@ class Ad
      */
     private $ratings;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="ad")
+     */
+    private $messages;
+
 
     public function __construct()
     {
@@ -132,6 +137,7 @@ class Ad
         $this->contacts = new ArrayCollection();
         $this->bookings = new ArrayCollection();
         $this->ratings = new ArrayCollection();
+        $this->messages = new ArrayCollection();
 
     }
 
@@ -466,6 +472,37 @@ class Ad
             // set the owning side to null (unless already changed)
             if ($rating->getAd() === $this) {
                 $rating->setAd(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setAd($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getAd() === $this) {
+                $message->setAd(null);
             }
         }
 

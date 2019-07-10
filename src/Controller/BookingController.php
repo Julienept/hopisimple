@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class BookingController extends AbstractController
 {
     /**
-     * @Route("/annonces/{id}/reserver", name="ad_booking")
+     * @Route("/ads/{id}/booking", name="ad_booking")
      * @IsGranted("ROLE_USER")
      * 
      * @return Response
@@ -34,7 +34,7 @@ class BookingController extends AbstractController
             $user = $this->getUser();
                 $booking->setBooker($user) 
                         ->setAd($ad)
-                            ;
+                        ;
 
             if(!$booking->isAvailableDate())
             {
@@ -69,7 +69,7 @@ class BookingController extends AbstractController
     }
 
     /**
-     * @Route("/reservation/{id}", name="booking_show")
+     * @Route("/booking/{id}", name="booking_show")
      * @return Response
      */
     public function show(Booking $booking)

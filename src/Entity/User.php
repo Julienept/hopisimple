@@ -96,7 +96,19 @@ class User implements UserInterface
      */
     private $ratings;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="receiver")
+     */
+    private $messages;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="sender")
+     */
+    private $sentMessages;
+
+    public function getFullname() {
+        return "{$this->firstname} {$this->lastname}";
+    }
     
     public function __construct()
     {
@@ -104,6 +116,8 @@ class User implements UserInterface
         $this->inscriptionDate = new DateTime();
         $this->bookings = new ArrayCollection();
         $this->ratings = new ArrayCollection();
+        $this->messages = new ArrayCollection();
+        $this->sentMessages = new ArrayCollection();
     }
    
     public function getId(): ?int
@@ -329,6 +343,68 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($rating->getAuthor() === $this) {
                 $rating->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setReceiver($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getReceiver() === $this) {
+                $message->setReceiver(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getSentMessages(): Collection
+    {
+        return $this->sentMessages;
+    }
+
+    public function addSentMessage(Message $sentMessage): self
+    {
+        if (!$this->sentMessages->contains($sentMessage)) {
+            $this->sentMessages[] = $sentMessage;
+            $sentMessage->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSentMessage(Message $sentMessage): self
+    {
+        if ($this->sentMessages->contains($sentMessage)) {
+            $this->sentMessages->removeElement($sentMessage);
+            // set the owning side to null (unless already changed)
+            if ($sentMessage->getSender() === $this) {
+                $sentMessage->setSender(null);
             }
         }
 

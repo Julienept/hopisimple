@@ -6,7 +6,9 @@ use DateTime;
 use App\Entity\Ad;
 use App\Form\AdType;
 use App\Entity\Contact;
+use App\Entity\Message;
 use App\Form\ContactType;
+use App\Form\MessageType;
 use App\Repository\AdRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class AdController extends AbstractController
 {
@@ -30,7 +33,7 @@ class AdController extends AbstractController
     }
     
     /**
-     * @Route("/annonces", name="ads_list")
+     * @Route("/ads", name="ads_list")
      */
     public function allAds(AdRepository $AdRepository)
     {
@@ -43,7 +46,7 @@ class AdController extends AbstractController
     }
 
     /**
-     * @Route("/annonces/ajouter", name="ads_new")
+     * @Route("/ads/add", name="ads_new")
      * @IsGranted("ROLE_USER")
      * @return Response
      */
@@ -81,7 +84,7 @@ class AdController extends AbstractController
     }
 
     /**
-     * @Route("/annonces/{id}", name="ads_show")
+     * @Route("/ads/{id}", name="ads_show")
      * 
      * @return Response
      */
@@ -103,7 +106,7 @@ class AdController extends AbstractController
     
 
     /**
-     * @Route("/annonces/{id}/modifier", name="ads_update")
+     * @Route("/ads/{id}/update", name="ads_update")
      */
     public function update()
     {
@@ -113,7 +116,7 @@ class AdController extends AbstractController
     }
 
     /**
-     * @Route("/annonces/{id}/supprimer", name="ads_delete")
+     * @Route("/ads/{id}/delete", name="ads_delete")
      */
     public function delete()
     {
@@ -124,18 +127,7 @@ class AdController extends AbstractController
 
 
     /**
-     * @Route("/annonces/{id}/prestataire/notation", name="ads_profile_rating")
-     */
-    public function profileRating()
-    {
-        return $this->render('ad/index.html.twig', [
-            'controller_name' => 'AdController',
-        ]);
-    }
-
-  
-    /**
-     * @Route("/annonces/{id}/signaler", name="ads_report")
+     * @Route("/ads/{id}/signaler", name="ads_report")
      */
     public function report()
     {
@@ -143,4 +135,6 @@ class AdController extends AbstractController
             'controller_name' => 'AdController',
         ]);
     }
+
+    
 }

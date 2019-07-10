@@ -30,7 +30,7 @@ class ContactController extends AbstractController
             $manager->flush();
             $this->addFlash(
                 'success', 
-                "Votre message n°{$contact->getId()} a bien été modifiée" 
+                "Votre message n°{$contact->getId()} a bien été envoyé." 
             );
             return $this->redirectToRoute('contact_show', [
                 'id' => $contact->getId()
