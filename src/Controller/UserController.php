@@ -133,15 +133,5 @@ class UserController extends AbstractController
         ]);
     }
 
-    
-     /**
-     * @Route("/messages", name="user_messages")
-     */
-    public function messages(ContactRepository $contact)
-    {
-        return $this->render('user/messages.html.twig', [
-            'user' => $this->getUser(),
-            'contact' => $contact
-        ]);
-    }
+
 }

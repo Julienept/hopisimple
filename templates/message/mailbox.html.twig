@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+ {% block title %}Votre messagerie{% endblock %}
+
+{% block body %}
+<div class="container">
+<h1>Vos messages</h1>
+
+{% if app.user.messages != null %}
+
+{% for message in messages %}
+<div class="messages-list">
+<h6>
+<a href="{{ path('ads_show', {'id': message.ad.id}) }}">{{ message.ad.title }}</a>
+</h4>
+<p>{{ message.content }}</p>
+<span>
+De
+<a href="{{ path('user_profile', {'id': message.sender.id}) }}">{{ message.sender.firstname }}</a></span>
+<img src="{{ message.sender.picture}}" alt="user-image" class="user-picture">
+</div>
+{% endfor %}
+
+{% else %}
+
+<h6>Vous n'avez pas encore de messages !</h6>
+{% endif %}
+
+
+{% endblock %}

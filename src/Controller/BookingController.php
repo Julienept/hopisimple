@@ -25,14 +25,12 @@ class BookingController extends AbstractController
         $booking = new Booking;        
 
         $form = $this->createForm(BookingType::class, $booking);
-
-        
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
             $user = $this->getUser();
-                $booking->setBooker($user) 
+            $booking->setBooker($user) 
                         ->setAd($ad)
                         ;
 

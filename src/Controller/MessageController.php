@@ -19,13 +19,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class MessageController extends AbstractController
 {
 
-     /**
+    /**
      * @Route("/ads/{id}/message", name="message_provider")
      * @IsGranted("ROLE_USER")
      * 
      * @return Response
      */
-    public function message(Ad $ad, Request $request, ObjectManager $manager)
+    public function message(Ad $ad, Request $request, ObjectManager $manager, $id)
     {
         $message = New Message();
 
@@ -33,25 +33,30 @@ class MessageController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $ad = $this->getAd();
+            $receiver = $ad->getUser($id);
             $user = $this->getUser();
             $message->setSender($user) 
                         ->setAd($ad)
+                    ->setReceiver($receiver)
                     ;
 
         
             $manager->persist($message);
+            
             $manager->flush();
+
             $this->addFlash(
                 'success', 
-                "Votre message n°{$message->getId()} a bien été envoyé." 
+                "Votre message a bien été envoyé." 
             );
             return $this->redirectToRoute('message_show', [
                 'id' => $message->getId()
             ]);
         }
         return $this->render('message/new.html.twig', [
+            'ad' => $ad,
             'form' => $form->createView()
+            
         ]);
     }
 
@@ -60,10 +65,24 @@ class MessageController extends AbstractController
      * 
      * @return Response
      */
-    public function showmessage(Message $message)
+    public function conversation(Message $message)
     {
         return $this->render('message/show.html.twig', [
             'message' => $message,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/mailbox", name="user_mailbox")
+     * 
+     * @return Response
+     */
+    public function mailbox(MessageRepository $repo, $id)
+    {
+        $messages = $repo->findById($id);
+
+        return $this->render('message/mailbox.html.twig', [
+            'messages' => $messages,
         ]);
     }
 }

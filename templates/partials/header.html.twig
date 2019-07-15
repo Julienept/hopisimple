@@ -23,6 +23,9 @@
                         <a class="nav-link" href="{{ path('your_profile', { 'id': app.user.id}) }}">Mon compte</a>
                     </li>
                     <li class="navbar-item">
+                        <a class="nav-link" href="{{ path('user_mailbox', { 'id': app.user.id}) }}">Messagerie</a>
+                    </li>
+                    <li class="navbar-item">
                         <a class="nav-link" href="{{ path('user_logout')}}">Déconnexion</a>
                     </li>
                     
