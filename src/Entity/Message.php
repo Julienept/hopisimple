@@ -36,7 +36,7 @@ class Message
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Ad", inversedBy="messages")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $ad;
 

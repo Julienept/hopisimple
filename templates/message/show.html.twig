@@ -1,19 +1,41 @@
 {% extends 'base.html.twig' %}
 
- {% block title %}Votre message n°{{ message.id }}{% endblock %}
+ {% block title %}Votre conversation avec {{ message.sender.firstname }}{% endblock %}
 
  {% block body %}
 
+
 <div class="container">
 
-    <h1>Votre message </h1>
-
-  <div>
-  <p> {{ message.content }}
-  </p>  
-  <p>Le {{ message.createdAt|date('d/m/Y H:i') }}</p>
-  <p>{{ message.sender.firstname }}</p>
+  <div class="card">
+  <div class="card-body">
+    <h4 class="card-title">{{ message.sender.firstname }}</h4>
+    <h6 class="card-subtitle mb-2 text-muted">{{ message.createdAt|date('d/m/Y H:i') }}</h6>
+    <p class="card-text">{{ message.content }}</p>
   </div>
+</div>
+
+
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">{{ message.receiver.firstname }}</h4>
+    <h6 class="card-subtitle mb-2 text-muted">{{ message.createdAt|date('d/m/Y H:i') }}</h6>
+    <p class="card-text">{{ message.content }}</p>
+  </div>
+</div>
+  
+
+  {% if message.sender != null %}
+
+  {{ form_start(form)}}
+
+  {{ form_widget(form)}}
+
+  <button type="submit" class="btn btn-primary">Répondre</button>
+
+  {{ form_end(form)}}
+
+  {% endif %}
 
 
 
