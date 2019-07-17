@@ -12,6 +12,19 @@
     <p>{{ user.biography }}</p>
     <a href="{{ path('user_update')}}"><button class="btn btn-primary">Modifier mes infos</button></a>
 
+    <h6>Vos réservations</h6>
+    <p>{{ user.bookings |length}}</p>
+    {% for booking in user.bookings %}
+    <p>Numéro de réservation : {{ booking.id }}</p>
+    <p>Annonce : {{ booking.ad.title}}</p>
+    <p>Votre prestataire : {{ booking.ad.user.firstname }}</p>
+    {% endfor %}
+{# 
+    <h6>Vos prestations</h6>
+    {% for service in user.ads.bookings %}
+    <p>{{ service.booker.firstname }}</p>
+    {% endfor %} #}
+
 </div>
 
 

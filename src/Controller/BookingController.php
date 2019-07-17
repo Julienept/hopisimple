@@ -47,11 +47,6 @@ class BookingController extends AbstractController
 
             $manager->flush();
 
-            $this->addFlash(
-                'success',
-                "Votre réservation a bien été effectuée !"
-            );
-
             return $this->redirectToRoute('booking_show', [
                 'id' => $booking->getId(),
                 'withAlert' => true

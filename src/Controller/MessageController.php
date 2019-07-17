@@ -54,7 +54,7 @@ class MessageController extends AbstractController
                 'id' => $message->getId()
             ]);
         }
-        return $this->render('message/new.html.twig', [
+        return $this->render('mailbox/new.html.twig', [
             'ad' => $ad,
             'form' => $form->createView()
             
@@ -70,7 +70,7 @@ class MessageController extends AbstractController
     {
         $messages = $repo->findAll();
 
-        return $this->render('message/mailbox.html.twig', [
+        return $this->render('mailbox/mailbox.html.twig', [
             'messages' => $messages,
         ]);
     }
@@ -114,7 +114,7 @@ class MessageController extends AbstractController
         }
 
 
-        return $this->render('message/show.html.twig', [
+        return $this->render('mailbox/show.html.twig', [
             'message' => $message,
             'form' => $form->createView(),
             'ad' => $ad
