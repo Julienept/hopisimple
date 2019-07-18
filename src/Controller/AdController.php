@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use App\Service\PaginationService;
 
 class AdController extends AbstractController
 {
@@ -33,15 +34,17 @@ class AdController extends AbstractController
     }
     
     /**
-     * @Route("/ads", name="ads_list")
+     * @Route("/ads/{page<\d+>?1}", name="ads_list")
      */
-    public function allAds(AdRepository $AdRepository)
+    public function allAds(AdRepository $AdRepository, $page, PaginationService $pagination)
     {
-        $ads = $AdRepository->findAll();
+        $pagination->SetEntityClass(Ad::class)
+        ->setPage($page)
+        ;
 
         return $this->render('ad/index.html.twig', [
-            'ads' => $ads,
-        ]);
+            'pagination' => $pagination
+            ]);
 
     }
 

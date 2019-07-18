@@ -6,7 +6,7 @@
 <div class="container">
 <h1>Toutes les annonces</h1>
 
-{% for ad in ads %}
+{% for ad in pagination.data %}
 <div class="ads-list">
 <h4>
 <a href="{{ path('ads_show', {'id': ad.id}) }}">{{ ad.title }}</a>
@@ -19,6 +19,8 @@
 <img src="{{ ad.user.picture}}" alt="user-image" class="user-picture">
 </div>
 {% endfor %}
+
+{{ pagination.display() }}
 
 </div>
 

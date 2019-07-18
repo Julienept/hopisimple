@@ -8,7 +8,6 @@
 
 {% if app.user.messages != null %}
 
-
 {% for message in messages %}
 <div class="card bg-light mb-3" style="max-width: 20rem;">
   <div class="card-header"><a href="{{ path('user_profile', {'id': message.sender.id}) }}">{{ message.sender.firstname }}</a></div>
@@ -17,7 +16,7 @@
     <p class="card-text">{{ message.content }}</p>
   </div>
   <span><a href="{{ path('conversation_show', {'id': message.id}) }}">Lire</a></span>
-</div>
+  </div>
 {% endfor %}
 
 {% else %}
@@ -26,6 +25,7 @@
 <h6>Vous n'avez pas encore de messages !</h6>
 
 {% endif%}
+{# {{ pagination.display() }} #}
 
-
+</div>
 {% endblock %}

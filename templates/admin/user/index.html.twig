@@ -3,7 +3,7 @@
 {% block title %}Administration des utilisateurs{% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
+    <div class="container">
         <h1 class="my-5">Administration des utilisateurs</h1>
 
         <table class="table table-hover">
@@ -19,7 +19,7 @@
             </thead>
 
             <tbody>
-                {% for user in users %}
+                {% for user in pagination.data %}
                 <tr>
                     <td>{{user.id}}</td>
                     <td>{{user.inscriptionDate|date('d/m/Y H:i')}}</td>
@@ -38,6 +38,7 @@
             </tbody>
         
         </table>
-        
+            {{ pagination.display() }}
+
     </div>
 {% endblock %}
