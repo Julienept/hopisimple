@@ -22,6 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Proxies\__CG__\App\Entity\City;
 
 class AdType extends AbstractType
 {
@@ -37,8 +38,8 @@ class AdType extends AbstractType
             ->add('price', NumberType::class, [
                 'label' => 'Votre tarif'
             ]) 
-            ->add('city', TextType::class, [
-                'label' => 'Ville où se déroulera la prestation'
+            ->add('city', CityType::class, [
+                'label' => 'Information autour du lieu de prestation'
             ])
             ->add('establishment', ChoiceType::class, [
                 'label' => 'Lieu de la prestation',

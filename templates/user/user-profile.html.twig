@@ -21,7 +21,7 @@
         <h4 class="card-title">Prestation</h4>
         <p class="card-text">{{ ad.description }}</p> 
           <span>{{ ad.price}} €</span>
-    <span>{{ ad.city }}</span>
+    <span>{{ ad.city.name }},{{ ad.city.region }}</span>
         <a href="{{ path('ads_show', {'id': ad.id}) }}" class="btn btn-primary">Voir</a>
         </div>
     </div>

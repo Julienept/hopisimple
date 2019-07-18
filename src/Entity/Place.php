@@ -38,10 +38,7 @@ class Place
      */
     private $postalCode;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $city;
+
 
     /**
      * @ORM\Column(type="decimal", precision=18, scale=8, nullable=true)
@@ -64,6 +61,12 @@ class Place
      */
     private $users;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\City")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $city;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -76,7 +79,6 @@ class Place
         return (string) $this->streetName;
         return (string) $this->addressSupplement;
         return (string) $this->postalCode;
-        return (string) $this->city;
         return (string) $this->latitude;
         return (string) $this->longitude;
        
@@ -136,17 +138,6 @@ class Place
         return $this;
     }
 
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
 
     public function getLatitude()
     {
@@ -214,6 +205,18 @@ class Place
                 $user->setPlace(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }

@@ -35,22 +35,6 @@ class AdController extends AbstractController
             'last' => $lastAds
         ]);
     }
-    
-    /**
-     * @Route("/ads/{page<\d+>?1}", name="ads_list")
-     */
-    public function allAds(AdRepository $AdRepository, $page, PaginationService $pagination)
-    {
-        $pagination->SetEntityClass(Ad::class)
-        ->setPage($page)
-        ;
-
-        return $this->render('ad/index.html.twig', [
-            'pagination' => $pagination
-            ]);
-
-    }
-
     /**
      * @Route("/ads/add", name="ads_new")
      * @IsGranted("ROLE_USER")
@@ -88,9 +72,9 @@ class AdController extends AbstractController
         
     
     }
-
-    /**
-     * @Route("/{id}/ad", name="ads_show")
+    
+     /**
+     * @Route("/ads/{id}", name="ads_show")
      * 
      * @return Response
      */
@@ -108,8 +92,21 @@ class AdController extends AbstractController
             'ad' => $ad,
         ]);
     }
-
     
+    /**
+     * @Route("/ads/{page<\d+>?1}", name="ads_list")
+     */
+    public function allAds(AdRepository $AdRepository, $page, PaginationService $pagination)
+    {
+        $pagination->SetEntityClass(Ad::class)
+        ->setPage($page)
+        ;
+
+        return $this->render('ad/index.html.twig', [
+            'pagination' => $pagination
+            ]);
+
+    }
 
     /**
      * @Route("/ads/{id}/update", name="ads_update")

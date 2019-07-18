@@ -106,6 +106,12 @@ class User implements UserInterface
      */
     private $sentMessages;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\City", inversedBy="users")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $city;
+
     public function getFullname() {
         return "{$this->firstname} {$this->lastname}";
     }
@@ -407,6 +413,18 @@ class User implements UserInterface
                 $sentMessage->setSender(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }

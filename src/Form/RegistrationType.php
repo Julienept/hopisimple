@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use App\Entity\Place;
+use App\Form\CityType;
 use App\Form\PlaceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -56,6 +57,7 @@ class RegistrationType extends AbstractType
             ->add('place', PlaceType::class, [
                 'label' => 'Vos informations personnelles'
             ])
+            ->add('city', CityType::class)
         ;
     }
 

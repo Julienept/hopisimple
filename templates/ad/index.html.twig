@@ -13,7 +13,7 @@
 </h4>
 <p>{{ ad.description }}</p>
 <span>{{ ad.price}} €</span>
-<span>{{ ad.city }}</span>
+<span>{{ ad.city.name }}, {{ ad.city.region}}</span>
 <span>
 <a href="{{ path('user_profile', {'id': ad.user.id}) }}">{{ ad.user.firstname }}{{ ad.user.lastname }}</a></span>
 <img src="{{ ad.user.picture}}" alt="user-image" class="user-picture">

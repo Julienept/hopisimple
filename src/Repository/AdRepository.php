@@ -42,6 +42,20 @@ class AdRepository extends ServiceEntityRepository
             ->getResult();
 
     }
+
+    public function getByRegion()
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.city LIKE :searchCity')
+            ->setParameter('searchCity', '%' . $city . '%')
+            ->orderBy('a.city', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+
+
+
+    }
     
     // /**
     //  * @return Ad[] Returns an array of Ad objects

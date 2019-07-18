@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Faker;
 use App\Entity\Ad;
 use App\Entity\Tag;
+use App\Entity\City;
 use App\Entity\User;
 use App\Entity\Place;
 use Doctrine\Migrations\Version\Factory;
@@ -27,8 +28,20 @@ class AppFixtures extends Fixture
 
         $places = [];
         $genres = ['Monsieur', 'Madame'];
-        // Gestion des adresses
+        
+        for($c=1; $c<=50; $c++)
+        {
+            $city = new City;
 
+            $city->setName($faker->city)
+                ->setRegion($faker->state)
+                ->setDepartment(($faker->word(1)));
+
+            $manager->persist($city);
+
+        }
+
+        // Gestion des adresses
         for($p=1; $p<= 50; $p++)
         {
     
@@ -37,7 +50,7 @@ class AppFixtures extends Fixture
         $place->setStreetNumber($faker->randomFloat)
                 ->setStreetName($faker->streetName)
                 ->setPostalCode($faker->buildingNumber)
-                ->setCity($faker->city)
+                ->setCity($city)
                 ->setCountry('France')
         ;
         $manager->persist($place);
@@ -68,6 +81,7 @@ class AppFixtures extends Fixture
             ->setBiography($faker->paragraph(1))
             ->setInscriptionDate(new \DateTime())
             ->setPlace($place)
+            ->setCity($city)
             ->setPicture($faker->imageUrl($width = 100, $height = 30))
         ;
         $manager->persist($user);
@@ -104,7 +118,7 @@ class AppFixtures extends Fixture
                 ->setDescription($faker->paragraph(2))
                 ->setPrice(mt_rand(6,19))
                 ->setCreatedAt(new \DateTime())
-                ->setCity($faker->city)
+                ->setCity($city)
                 ->setUser($user)
                 ->setEstablishment($estRand)
                 ->setTransport($transRand)

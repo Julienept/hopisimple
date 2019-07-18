@@ -61,12 +61,7 @@ class Ad
      * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="ads")
      */
     private $tags;
-  
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $city;
 
 
     /**
@@ -128,6 +123,12 @@ class Ad
      * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="ad")
      */
     private $messages;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\City", inversedBy="ads")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $city;
 
 
     public function __construct()
@@ -275,19 +276,6 @@ class Ad
         if ($this->tags->contains($tag)) {
             $this->tags->removeElement($tag);
         }
-
-        return $this;
-    }
-
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
 
         return $this;
     }
@@ -505,6 +493,18 @@ class Ad
                 $message->setAd(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }
