@@ -26,10 +26,13 @@ class AdController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function homepage()
+    public function homepage(AdRepository $repo)
     {
+        $lastAds = $repo->orderByASC(3);
+
         return $this->render('home/home.html.twig', [
-            'controller_name' => 'AdController',
+            'ads' => $repo->findBestAds(1),
+            'last' => $lastAds
         ]);
     }
     
@@ -87,7 +90,7 @@ class AdController extends AbstractController
     }
 
     /**
-     * @Route("/ads/{id}", name="ads_show")
+     * @Route("/{id}/ad", name="ads_show")
      * 
      * @return Response
      */

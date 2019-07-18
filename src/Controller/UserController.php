@@ -28,7 +28,7 @@ class UserController extends AbstractController
 {
   
     /**
-     * @Route("/monprofil", name="your_profile")
+     * @Route("/account", name="your_profile")
      */
     public function account()
     {
@@ -38,7 +38,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/profil/modifier", name="user_update")
+     * @Route("/account/update", name="user_update")
      * @return Response
      */
     public function accountUpdate(Request $request)
@@ -70,7 +70,7 @@ class UserController extends AbstractController
         
     
     /**
-     * @Route("/utilisateus/{id}", name="user_profile")
+     * @Route("/users/{id}", name="user_profile")
      */
     public function userAccount(User $user)
     {
@@ -80,7 +80,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateurs/{id}/contact", name="user_contact")
+     * @Route("/users/{id}/contact", name="user_contact")
      * @IsGranted("ROLE_USER")
      */
     public function userContact(EntityManagerInterface $em, ObjectManager $manager, Request $request, User $userContact, \Swift_Mailer $mailer)

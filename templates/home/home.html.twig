@@ -74,83 +74,43 @@
 </div>
 
 <h2>Les dernières annonces</h2>
+{% for ad in last %}
 <div class="row mt-5">
     <div class="col-md-4">
         <div class="card bg-light mb-3">
-        <div class="card-header">Annonce 1</div>
-        <div class="card-body">
-        <h4 class="card-title">Prestation</h4>
-        <p class="card-text">Très courte description de la prestation</p> 
-        <a href="#" class="btn btn-primary">Voir</a>
+            <div class="card-header">Annonce n° {{ad.id}}</div>
+         <div class="card-body">
+             <h4 class="card-title">{{ ad.title }}</h4>
+             <p class="card-text">{{ad.description}}</p> 
+            <a href="{{ path('ads_show', {'id': ad.id}) }}" class="btn btn-primary">Voir</a>
         </div>
-    </div>    
-</div>
+    </div>  
+</div> 
+</div> 
 
-    <div class="col-md-4">
-        <div class="card bg-light mb-3">
-        <div class="card-header">Annonce 2</div>
-        <div class="card-body">
-        <h4 class="card-title">Prestation</h4>
-        <p class="card-text">Très courte description de la prestation</p> 
-        <a href="#" class="btn btn-primary">Voir</a>
-        </div>
-        </div>    
+      {% endfor %}
+     
 
-    </div>
-    <div class="col-md-4">  
-        <div class="card bg-light mb-3">
-        <div class="card-header">Annonce 3</div>
-        <div class="card-body">
-        <h4 class="card-title">Prestation</h4>
-        <p class="card-text">Très courte description de la prestation</p> 
-        <a href="#" class="btn btn-primary">Voir</a>
-        </div>
-            </div>    
 
-    </div>
-</div>
-
+  
    
 <h2>Les prestataires les mieux notés</h2>
+{% for data in ads %}
 <div class="row mt-5">
     <div class="col-md-4">
         <div class="card bg-light mb-3">
                 <div class="card-header text-center">
-                Prestataire 1
+                <p>Une note de {{ data.avgRatings}}</p>
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title">Prénom NOM</h4>
-                    <class="card-text"><img src="http://placehold.it/64x64" alt="" class="float-left mr-3"><p>Biographie</p>
-                    <a href="#" class="btn btn-primary">Voir</a>
-                </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card bg-light mb-3">
-                <div class="card-header text-center">
-                Prestataire 2
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">Prénom NOM</h4>
-                    <class="card-text"><img src="http://placehold.it/64x64" alt="" class="float-left mr-3"><p>Biographie</p>
-                    <a href="#" class="btn btn-primary">Voir</a>
-                </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card bg-light mb-3">
-                <div class="card-header text-center">
-                Prestataire 3
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">Prénom NOM</h4>
-                    
-                    <class="card-text"><img src="http://placehold.it/64x64" alt="" class="float-left mr-3"><p>Biographie</p>
-                    <a href="#" class="btn btn-primary">Voir</a>
+                    <h4 class="card-title">{{ data.annonce.user.firstname}}</h4>
+                    <class="card-text"><img src="http://placehold.it/64x64" alt="" class="float-left mr-3"><p>{{ data.annonce.user.biography}}</p>
+                    <a href="{{ path('user_profile', {'id': data.annonce.user.id}) }}" class="btn btn-primary">Voir</a>
                 </div>
         </div>
     </div>
 </div>
+    {% endfor %}
 
 
 </div>
