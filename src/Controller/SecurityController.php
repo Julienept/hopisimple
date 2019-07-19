@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/connexion", name="user_login")
+     * @Route("/login", name="user_login")
      */
     public function login(AuthenticationUtils $utils)
     {
@@ -32,7 +32,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/inscription", name="user_signin")
+     * @Route("/signin", name="user_signin")
      * @return Response
      */
     public function signin(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
@@ -65,18 +65,16 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/deconnexion", name="user_logout")
+     * @Route("/logout", name="user_logout")
      * @return void 
      */
     public function logout()
     {
-        
-
         return $this->render('security/index.html.twig');
     }
 
      /**
-     * @Route("/profil/modifier-mot-de-passe", name="user_password_update")
+     * @Route("/account/password-update", name="user_password_update")
      * @return Response
      */
     public function passwordUpdate(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)

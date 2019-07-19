@@ -6,6 +6,7 @@ use Faker;
 use App\Entity\Ad;
 use App\Entity\Tag;
 use App\Entity\City;
+use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Place;
 use Doctrine\Migrations\Version\Factory;
@@ -88,6 +89,24 @@ class AppFixtures extends Fixture
         $users = $user;
         }
 
+        // Gestion de l'admin
+        $adminRole = new Role();
+        $adminRole->setTitle('ROLE_ADMIN');
+        $manager->persist($adminRole);
+
+        $adminUser = new User();
+        $adminUser->setTitle('Madame')
+                ->setFirstname('Julie')
+                ->setLastname('Lefebvre')
+                ->setEmail('lfbjulie@gmail.com')
+                ->setPassword($this->encoder->encodePassword($adminUser, 'password'))
+                ->setBiography($faker->paragraph(1))
+                ->setInscriptionDate(new \DateTime())
+                ->setPlace($place)
+                ->setCity($city)
+                ->addUserRole($adminRole);
+
+        $manager->persist($adminUser);
 
         // Gestion des annonces
         for($i=1; $i<= 100; $i++)

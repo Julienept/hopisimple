@@ -62,8 +62,6 @@ class Ad
      */
     private $tags;
 
-
-
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Contact", mappedBy="ad")
      */
@@ -130,6 +128,19 @@ class Ad
      */
     private $city;
 
+    public $bestCities = [
+        'Paris',
+        'Marseille',
+        'Lyon',
+        'Toulouse',
+        'Nice',
+        'Nantes',
+        'Montpellier',
+        'Strasbourg',
+        'Bordeaux',
+        'Lille' 
+    ];
+
 
     public function __construct()
     {
@@ -141,8 +152,16 @@ class Ad
         $this->messages = new ArrayCollection();
 
     }
+    
+    /**
+     * @return Array
+     */
+    public function getBestCites()
+    {
+        return $this->bestCities;
+    }
 
-     /**
+    /**
      * @return Array
      */
     public function getNotAvailableDate()

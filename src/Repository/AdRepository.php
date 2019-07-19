@@ -30,32 +30,15 @@ class AdRepository extends ServiceEntityRepository
                     ;
     }    
 
-    public function orderByASC($limit)
-    {
-        return $this->getEntityManager()
-            ->createQuery('
-                SELECT a 
-                FROM App\Entity\Ad a 
-                ORDER BY a.title ASC
-            ')
-            ->setMaxResults($limit)
-            ->getResult();
-
-    }
-
-    public function getByRegion()
-    {
-        return $this->createQueryBuilder('a')
-            ->where('a.city LIKE :searchCity')
-            ->setParameter('searchCity', '%' . $city . '%')
-            ->orderBy('a.city', 'ASC')
-            ->getQuery()
-            ->getResult();
-
-
-
-
-    }
+    // public function getByRegion($city)
+    // {
+    //     return $this->createQueryBuilder('a')
+    //         ->where('a.city LIKE :searchCity')
+    //         ->setParameter('searchCity', '%' . $city . '%')
+    //         ->orderBy('a.city', 'ASC')
+    //         ->getQuery()
+    //         ->getResult();
+    // }
     
     // /**
     //  * @return Ad[] Returns an array of Ad objects

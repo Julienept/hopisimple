@@ -10,6 +10,8 @@ use App\Entity\Message;
 use App\Form\ContactType;
 use App\Form\MessageType;
 use App\Repository\AdRepository;
+use App\Repository\CityRepository;
+use App\Service\PaginationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -19,7 +21,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use App\Service\PaginationService;
 
 class AdController extends AbstractController
 {
@@ -28,11 +29,12 @@ class AdController extends AbstractController
      */
     public function homepage(AdRepository $repo)
     {
-        $lastAds = $repo->orderByASC(3);
+        $lastAds = $repo->findBy(array(), array('id' => 'desc'),3,0);
+
 
         return $this->render('home/home.html.twig', [
             'ads' => $repo->findBestAds(1),
-            'last' => $lastAds
+            'last' => $lastAds,
         ]);
     }
     /**
@@ -73,6 +75,17 @@ class AdController extends AbstractController
     
     }
     
+    /**
+     * @Route("/ads/{id}/city", name="city_ads")
+     */
+    public function byCity(CityRepository $repo)
+    {
+
+        return $this->render('ad/city.html.twig', [
+            'city' => $repo->findAll()
+            ]);
+
+    }
      /**
      * @Route("/ads/{id}", name="ads_show")
      * 
